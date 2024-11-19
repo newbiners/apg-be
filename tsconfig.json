@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", // Menggunakan ES2022 untuk mendukung fitur terbaru
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"]
+}
+
+  
