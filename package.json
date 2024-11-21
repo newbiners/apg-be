@@ -2,7 +2,7 @@
   "name": "be-school",
   "version": "1.0.0",
   "description": "be school learn",
-  "main": "app.ts",
+  "main": "app.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/app.js",
