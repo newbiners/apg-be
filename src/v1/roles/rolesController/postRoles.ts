@@ -7,7 +7,9 @@ export const PostRoles = async (req : Request, res : Response): Promise<void> =>
             name
         });
         const saveRoles = await newRoles.save();
-        res.json(saveRoles);
+        
+        const getRoles = await roles.find();
+        res.status(200).json(getRoles);
     }catch (err) {
         console.log(err)
     }
