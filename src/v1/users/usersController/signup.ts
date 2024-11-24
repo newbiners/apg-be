@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 export const signup = async (req : Request, res : Response): Promise<void> => {
     try{
-        const { name, username, password, confirmPassword,} = req.body;
+        const { name, username, password, confirmPassword, role} = req.body;
 
         if(password != confirmPassword){
             res.status(400).json({message : "Password not match"})
@@ -16,6 +16,7 @@ export const signup = async (req : Request, res : Response): Promise<void> => {
             name,
             username,
             password : hashPassword,
+            role
         });
         const saveUser = await newUser.save();
         res.json(saveUser);

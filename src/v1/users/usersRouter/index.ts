@@ -9,11 +9,12 @@ import { authorizeRoles } from '../../../global/authorizeRoles';
 import { signup } from '../usersController/signup';
 const router = express.Router();
 
-router.post('/', userPost);
-router.get('/',authenticateToken, GetAllUsers);
-router.delete('/:id', DeleteUser);
-router.get('/:id', GetUserById);
 router.post('/login', userLogin);
 router.post('/signup', signup);
+router.use(authenticateToken)
+router.get('/', GetAllUsers);
+router.delete('/:id', DeleteUser);
+router.get('/:id', GetUserById);
+router.post('/', userPost);
 
 export const userRouter = router;
