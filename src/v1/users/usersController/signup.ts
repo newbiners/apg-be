@@ -20,7 +20,8 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
             name,
             username,
             password: hashPassword,
-            role
+            role,
+            phone_number: ""
         });
         const saveUser = await newUser.save();
         res.json(saveUser);
