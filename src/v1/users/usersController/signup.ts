@@ -21,7 +21,6 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
             username,
             password: hashPassword,
             role,
-            phone_number: ""
         });
         const saveUser = await newUser.save();
         res.json(saveUser);
