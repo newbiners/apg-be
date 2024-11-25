@@ -13,6 +13,9 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
         const salt = bcrypt.genSaltSync(Number(salt_id));
         const hashPassword = bcrypt.hashSync(password, salt);
 
+
+        res.json({ hashPassword });
+
         const newUser = new User({
             name,
             username,
