@@ -5,7 +5,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
     try {
         const { name, username, password, confirmPassword, role } = req.body;
 
-        res.json({ name, username, password, confirmPassword, role });
+        // res.json({ name, username, password, confirmPassword, role });
         if (password != confirmPassword) {
             res.status(400).json({ message: "Password not match" })
         }
