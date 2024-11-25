@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { IRoles } from "../../roles/rolesModel/rolesModel";
 const Schema = mongoose.Schema;
-const Document = mongoose.Document;
 
 export interface IUser extends Document {
   name: string;

@@ -14,7 +14,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
         const hashPassword = bcrypt.hashSync(password, salt);
 
 
-        res.json({ hashPassword });
+        // res.json({ hashPassword });
 
         const newUser = new User({
             name,
