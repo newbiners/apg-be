@@ -6,11 +6,12 @@ import { EditRegu } from "../reguController/editRegu";
 import { getReguBySchool } from "../reguController/getReguBySchool";
 import { GetSearchRegu } from "../reguController/getSearchRegu";
 import { authenticateToken } from '../../../global/authenticateToken';
+import { authorizeRoles } from "../../../global/authorizeRoles";
 const router = express.Router();
 
 router.get("/", GetAllRegu);
 router.get("/search", GetSearchRegu)
-router.use(authenticateToken)
+router.use(authenticateToken, authorizeRoles(['ADMIN']))
 router.post("/", PostRegu);
 router.post("/get-by-school", getReguBySchool);
 router.delete("/:id", DeleteRoles);

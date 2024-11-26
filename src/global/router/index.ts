@@ -7,6 +7,7 @@ import { lombaRouter } from "../../v1/lomba/lombaRouter";
 import { lombaDetailRouter } from "../../v1/lombaDetail/lombaDetailRouter";
 import { nilaiLombaRouter } from "../../v1/nilaiLomba/NilaiLombaRouter";
 import { nilaiLombaDetailRouter } from "../../v1/nilaiLombaDetail/NilaiLombaDetailRouter";
+import { nilaiJuriRouter } from "../../v1/nilaiJuri/NilaiJuriRouter";
 const router = express.Router();
 router.use("/users", userRouter);
 router.use("/roles", rolesRouter);
@@ -16,4 +17,5 @@ router.use("/lomba", lombaRouter);
 router.use("/lomba-detail", lombaDetailRouter);
 router.use("/nilai-lomba", nilaiLombaRouter);
 router.use("/nilai-lomba-detail", nilaiLombaDetailRouter);
+router.use("/nilai-juri", nilaiJuriRouter)
 export const Routers = router;
