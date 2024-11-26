@@ -24,7 +24,7 @@ export const postNilaiLomba = async (
     })
 
 
-    const dataLomba = await lombadb.findById(lomba._id);
+    const dataLomba = await lombadb.findById(lomba);
     const newNilaiLomba = new nilaiJuri({
       school,
       regu,
@@ -39,11 +39,11 @@ export const postNilaiLomba = async (
     await newNilaiLomba.save();
 
     const getNilaiLomba = await nilaiJuri.find({
-      school: school._id,
-      regu: regu._id,
-      lomba: lomba._id,
-      lomba_detail: lomba_detail._id,
-      create: create._id,
+      school: school,
+      regu: regu,
+      lomba: lomba,
+      lomba_detail: lomba_detail,
+      create: create,
       nilai_lomba_id: nilai_lomba_id,
       nilai_lomba_detail_id: nilai_lomba_detail_id
     });
