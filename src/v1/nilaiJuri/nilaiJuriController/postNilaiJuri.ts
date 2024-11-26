@@ -99,7 +99,7 @@ const createNilaiRegu = async (data: any) => {
   for (let i = 0; i < nilaiDataJuri.length; i++) {
     nilai += nilaiDataJuri[i].nilai
   }
-  const nilai_lomba = await regu.findByIdAndUpdate(data.regu._id, { nilai: nilai }, { new: true });
+  const nilai_lomba = await regu.findByIdAndUpdate(data.regu, { nilai: nilai }, { new: true });
 }
 
 
@@ -114,7 +114,7 @@ const createNilaiSchool = async (data: any) => {
   for (let i = 0; i < nilaiDataJuri.length; i++) {
     nilai += nilaiDataJuri[i].nilai
   }
-  const nilai_lomba = await schools.findByIdAndUpdate(data.school._id, { nilai: nilai }, { new: true });
+  const nilai_lomba = await schools.findByIdAndUpdate(data.school, { nilai: nilai }, { new: true });
 }
 
 
