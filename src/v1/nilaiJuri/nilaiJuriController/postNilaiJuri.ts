@@ -14,11 +14,11 @@ export const postNilaiLomba = async (
     const { school, regu, lomba, nilai, lomba_detail, create, nilai_lomba_id, nilai_lomba_detail_id } = req.body;
 
     const removeData = await nilaiJuri.deleteMany({
-      school: school._id,
-      regu: regu._id,
-      lomba: lomba._id,
-      lomba_detail: lomba_detail._id,
-      create: create._id,
+      school: school,
+      regu: regu,
+      lomba: lomba,
+      lomba_detail: lomba_detail,
+      create: create,
       nilai_lomba_id: nilai_lomba_id,
       nilai_lomba_detail_id: nilai_lomba_detail_id
     })
