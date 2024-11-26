@@ -8,7 +8,8 @@ export const DeleteSchool = async (
     const id = req.params.id;
     const deleteRoles = await schools.findByIdAndDelete({ _id: id });
     const getSchools = await schools.find();
-    res.status(200).json(getSchools);
+    const sortegetSchools = getSchools.sort((a: any, b: any) => b.nilai - a.nilai);
+    res.status(200).json(sortegetSchools);
   } catch (err) {
     console.log(err);
   }

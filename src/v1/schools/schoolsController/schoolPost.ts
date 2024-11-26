@@ -27,8 +27,8 @@ export const schoolPost = async (
     });
     const saveSchool = await newSchool.save();
     const getSchools = await schools.find();
-    res.status(200).json(getSchools);
-    // res.json(saveSchool);
+    const sortegetSchools = getSchools.sort((a: any, b: any) => b.nilai - a.nilai);
+    res.status(200).json(sortegetSchools);
   } catch (error) {
     console.log(error);
   }

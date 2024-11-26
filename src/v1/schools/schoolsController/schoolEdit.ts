@@ -31,7 +31,8 @@ export const EditSchool = async (
 
     // Mengirim respons dengan data sekolah yang diperbarui
     const getSchools = await schools.find();
-    res.status(200).json(getSchools);
+    const sortegetSchools = getSchools.sort((a: any, b: any) => b.nilai - a.nilai);
+    res.status(200).json(sortegetSchools);
   } catch (error) {
     console.error(error);
     res

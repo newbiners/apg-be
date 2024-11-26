@@ -7,7 +7,8 @@ export const GetSearchSchool = async (req: Request, res: Response): Promise<void
         const getSchools = await schools.find({
             name: { $regex: search, $options: "i" } // Menggunakan regex agar pencarian tidak case-sensitive
         });
-        res.status(200).json(getSchools);
+        const sortegetSchools = getSchools.sort((a: any, b: any) => b.nilai - a.nilai);
+        res.status(200).json(sortegetSchools);
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "An error occurred while searching for schools." });
