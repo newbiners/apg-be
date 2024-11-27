@@ -18,7 +18,7 @@ export const getNilaiJuri = async (
         }
 
         const filter = {
-            create: user && user._id || "",
+            // create: user && user._id || "",
             nilai_lomba_detail_id: { $in: nilai_lomba_detail_id }
         }
 
