@@ -26,7 +26,7 @@ export const getNilaiJuri = async (
         res.status(200).json(getData);
 
 
-        const data_arr: Record<string, number> = {};
+        var data_arr: Record<string, number> = {};
         for (let i = 0; i < getData.length; i++) {
             data_arr[getData[i].nilai_lomba_detail_id.toString()] = getData[i].nilai || 0
         }
