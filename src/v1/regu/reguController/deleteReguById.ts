@@ -17,7 +17,8 @@ export const DeleteRoles = async (
     getRegu.forEach((data) => {
       data.school = getSchool[data.school.toString()];
     });
-    res.status(200).json(getRegu);
+    const sortegetRegu = getRegu.sort((a: any, b: any) => b.nilai - a.nilai);
+    res.status(200).json(sortegetRegu);
   } catch (err) {
     console.log(err);
   }

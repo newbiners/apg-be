@@ -6,9 +6,9 @@ export const GetSearchRegu = async (
   res: Response
 ): Promise<void> => {
   try {
-    const search = req.query.search as string || ''; 
+    const search = req.query.search as string || '';
     const getRegu = await regu.find({
-        name: { $regex: search, $options: "i" }
+      name: { $regex: search, $options: "i" }
     });
 
     const school_id = getRegu.map((data) => data.school);
@@ -17,7 +17,8 @@ export const GetSearchRegu = async (
     getRegu.forEach((data) => {
       data.school = getSchool[data.school.toString()];
     });
-    res.status(200).json(getRegu);
+    const sortegetRegu = getRegu.sort((a: any, b: any) => b.nilai - a.nilai);
+    res.status(200).json(sortegetRegu);
   } catch (err) {
     console.log(err);
   }
