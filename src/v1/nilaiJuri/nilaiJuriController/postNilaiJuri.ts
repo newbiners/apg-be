@@ -6,6 +6,7 @@ import { nilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/n
 import { nilaiLomba } from "../../nilaiLomba/nilaiLombaModel/nilaiLombaModel";
 import { get } from "mongoose";
 import { regu } from "../../regu/reguModel/reguModel";
+import jwt from 'jsonwebtoken';
 export const postNilaiLomba = async (
   req: Request,
   res: Response
@@ -13,12 +14,14 @@ export const postNilaiLomba = async (
   try {
     const { school, regu, lomba, nilai, lomba_detail, create, nilai_lomba_id, nilai_lomba_detail_id } = req.body;
 
+    const decoded: any = jwt.verify(create, process.env.ACCESS_TOKEN_SECRET as string);
+
     const removeData = await nilaiJuri.deleteMany({
       school: school,
       regu: regu,
       lomba: lomba,
       lomba_detail: lomba_detail,
-      create: create,
+      create: decoded.payload,
       nilai_lomba_id: nilai_lomba_id,
       nilai_lomba_detail_id: nilai_lomba_detail_id
     })
@@ -32,7 +35,7 @@ export const postNilaiLomba = async (
       nilai,
       type: (dataLomba && dataLomba?.type) || "",
       lomba_detail,
-      create,
+      create: decoded.payload,
       nilai_lomba_id: nilai_lomba_id,
       nilai_lomba_detail_id: nilai_lomba_detail_id
     });
