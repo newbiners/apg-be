@@ -23,7 +23,7 @@ export const getNilaiJuri = async (
         }
 
         const getData = await nilaiJuri.find(filter)
-        res.status(200).json(filter);
+        res.status(200).json(getData);
 
 
         const data_arr: Record<string, number> = {};
