@@ -11,9 +11,9 @@ const router = express.Router();
 
 router.get("/", GetAllRegu);
 router.get("/search", GetSearchRegu)
+router.post("/get-by-school", getReguBySchool);
 router.use(authenticateToken, authorizeRoles(['ADMIN']))
 router.post("/", PostRegu);
-router.post("/get-by-school", getReguBySchool);
 router.delete("/:id", DeleteRoles);
 router.put("/:id", EditRegu);
 export const reguRouter = router;
