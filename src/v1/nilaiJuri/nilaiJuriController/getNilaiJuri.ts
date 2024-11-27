@@ -22,7 +22,7 @@ export const getNilaiJuri = async (
 
         const getData = await nilaiJuri.find({
             create: decoded.payload,
-            nilai_lomba_detail_id: { $in: nilai_lomba_detail_id }
+            // nilai_lomba_detail_id: { $in: nilai_lomba_detail_id }
         })
 
         res.status(200).json(getData);
