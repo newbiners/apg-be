@@ -54,7 +54,7 @@ export const postNilaiLomba = async (
       regu: regu,
       lomba: lomba,
       lomba_detail: lomba_detail,
-      create: create,
+      create: user && user._id || "",
       nilai_lomba_id: nilai_lomba_id,
       nilai_lomba_detail_id: nilai_lomba_detail_id
     });
