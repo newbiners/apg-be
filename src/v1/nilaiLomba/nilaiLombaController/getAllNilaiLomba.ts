@@ -8,11 +8,16 @@ export const getAllNilaiLomba = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { school, regu } = req.body;
-    const getNilaiLomba = await nilaiLomba.find({
+    const { school, regu, lomba = null } = req.body;
+
+    var filter: any = {
       school: school._id,
       regu: regu._id,
-    });
+    }
+    if (lomba != null) {
+      filter.lomba = lomba._id
+    }
+    const getNilaiLomba = await nilaiLomba.find(filter);
 
     var data_school = await schoolData(getNilaiLomba[0].school);
     var data_regu = await reguData(getNilaiLomba[0].regu);
