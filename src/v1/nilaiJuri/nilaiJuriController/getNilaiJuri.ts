@@ -17,11 +17,13 @@ export const getNilaiJuri = async (
             res.status(400).json({ message: "User not found" })
         }
 
-        const getData = await nilaiJuri.find({
+        const filter = {
             create: user && user._id || "",
             nilai_lomba_detail_id: { $in: nilai_lomba_detail_id }
-        })
-        res.status(200).json(getData);
+        }
+
+        const getData = await nilaiJuri.find(filter)
+        res.status(200).json(filter);
 
 
         const data_arr: Record<string, number> = {};
