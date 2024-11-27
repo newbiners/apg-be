@@ -17,8 +17,11 @@ export const getNilaiJuri = async (
         const token = create && create.split(' ')[1];
         const decoded: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string);
 
+
+
+
         const getData = await nilaiJuri.find({
-            create: decoded.payload,
+            // create: decoded.payload,
             nilai_lomba_detail_id: { $in: nilai_lomba_detail_id }
         })
 
