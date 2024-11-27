@@ -17,7 +17,7 @@ export const getNilaiJuri = async (
         const token = create && create.split(' ')[1];
         const decoded: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string);
 
-
+        res.status(200).json(decoded);
 
 
         const getData = await nilaiJuri.find({
