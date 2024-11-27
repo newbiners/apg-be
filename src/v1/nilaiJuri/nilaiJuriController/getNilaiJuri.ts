@@ -18,7 +18,7 @@ export const getNilaiJuri = async (
         }
 
         const filter = {
-            // create: user && user._id || "",
+            create: user && user._id || "",
             nilai_lomba_detail_id: { $in: nilai_lomba_detail_id }
         }
 
@@ -30,6 +30,8 @@ export const getNilaiJuri = async (
         for (let i = 0; i < getData.length; i++) {
             data_arr[getData[i].nilai_lomba_detail_id.toString()] = getData[i].nilai || 0
         }
+
+
         res.status(200).json(data_arr);
     } catch (err) {
         console.log(err);
