@@ -4,6 +4,7 @@ import { lomba as lombadb } from "../../lomba/lombaModel/lombaModel";
 import { nilaiJuri } from "../nilaiJuriModel/nilaiJuriModel";
 import { nilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/nilaiLombaDetailModel";
 import { nilaiLomba } from "../../nilaiLomba/nilaiLombaModel/nilaiLombaModel";
+import { User } from "../../users/usersModel/userModel";
 import { get } from "mongoose";
 import { regu } from "../../regu/reguModel/reguModel";
 import jwt from 'jsonwebtoken';
@@ -17,13 +18,18 @@ export const postNilaiLomba = async (
     const token = create && create.split(' ')[1];
     const decoded: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string);
 
+    const user = await User.findOne({ _id: decoded.payload });
+
+    if (!user) {
+      res.status(400).json({ message: "User not found" })
+    }
 
     const removeData = await nilaiJuri.deleteMany({
       school: school,
       regu: regu,
       lomba: lomba,
       lomba_detail: lomba_detail,
-      create: decoded.payload,
+      create: user && user._id || "",
       nilai_lomba_id: nilai_lomba_id,
       nilai_lomba_detail_id: nilai_lomba_detail_id
     })
@@ -37,7 +43,7 @@ export const postNilaiLomba = async (
       nilai,
       type: (dataLomba && dataLomba?.type) || "",
       lomba_detail,
-      create: decoded.payload,
+      create: user && user._id || "",
       nilai_lomba_id: nilai_lomba_id,
       nilai_lomba_detail_id: nilai_lomba_detail_id
     });

@@ -1,11 +1,6 @@
 import { Request, Response } from "express";
-import { schools } from "../../schools/schoolsModel/schoolsModel";
-import { lomba as lombadb } from "../../lomba/lombaModel/lombaModel";
 import { nilaiJuri } from "../nilaiJuriModel/nilaiJuriModel";
-import { nilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/nilaiLombaDetailModel";
-import { nilaiLomba } from "../../nilaiLomba/nilaiLombaModel/nilaiLombaModel";
-import { get } from "mongoose";
-import { regu } from "../../regu/reguModel/reguModel";
+import { User } from "../../users/usersModel/userModel";
 import jwt from 'jsonwebtoken';
 export const getNilaiJuri = async (
     req: Request,
@@ -16,16 +11,23 @@ export const getNilaiJuri = async (
 
         const token = create && create.split(' ')[1];
         const decoded: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string);
+        const user = await User.findOne({ _id: decoded.payload });
 
-        // res.status(200).json(decoded.payload);
-
+        if (!user) {
+            res.status(400).json({ message: "User not found" })
+        }
 
         const getData = await nilaiJuri.find({
-            create: decoded.payload,
+            create: user && user._id || "",
             nilai_lomba_detail_id: { $in: nilai_lomba_detail_id }
         })
 
-        res.status(200).json(getData);
+
+        const data_arr: Record<string, number> = {};
+        for (let i = 0; i < getData.length; i++) {
+            data_arr[getData[i].nilai_lomba_detail_id.toString()] = getData[i].nilai || 0
+        }
+        res.status(200).json(data_arr);
     } catch (err) {
         console.log(err);
         res.status(400).json(err);
