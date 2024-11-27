@@ -17,6 +17,7 @@ export const getNilaiJuri = async (
             res.status(400).json({ message: "User not found" })
         }
 
+        res.status(200).json(user);
         const getData = await nilaiJuri.find({
             create: user && user._id || "",
             nilai_lomba_detail_id: { $in: nilai_lomba_detail_id }
