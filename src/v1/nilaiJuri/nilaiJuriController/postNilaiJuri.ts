@@ -14,7 +14,9 @@ export const postNilaiLomba = async (
   try {
     const { school, regu, lomba, nilai, lomba_detail, create, nilai_lomba_id, nilai_lomba_detail_id } = req.body;
 
-    const decoded: any = jwt.verify(create, process.env.ACCESS_TOKEN_SECRET as string);
+    const token = create && create.split(' ')[1];
+    const decoded: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string);
+
 
     const removeData = await nilaiJuri.deleteMany({
       school: school,
