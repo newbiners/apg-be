@@ -29,6 +29,8 @@ export const getRole = async (): Promise<Record<string, IRoles>> => {
 // Function to fetch related competitions (lomba)
 export const getlomba = async (arrayLomba: string[]) => {
     try {
+
+        return arrayLomba;
         const data_lomba = await lombaDb.find({ _id: { $in: arrayLomba } });
         const data_result: Record<string, IRoles> = {}; // Define a map for roles
 
