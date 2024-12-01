@@ -6,15 +6,16 @@ import { getRole } from "./getAllUser";
 export const EditUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
-        const { name, username, password, role, active } = req.body;
+        const { name, username, password, role, active, lomba } = req.body;
 
 
         const user = await User.findOne({ _id: id });
 
 
-        var data: { name: any; username: any; role: any; active: any; password?: string } = {
+        var data: { name: any; username: any; role: any; active: any; password?: string; lomba?: string } = {
             name,
             username,
+            lomba,
             role,
             active
         }

@@ -4,7 +4,7 @@ import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 export const userPost = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name, username, password, role, active } = req.body;
+        const { name, username, password, role, active, lomba } = req.body;
 
         const salt_id = process.env.SALT;
         const salt = bcrypt.genSaltSync(Number(salt_id));
@@ -15,7 +15,8 @@ export const userPost = async (req: Request, res: Response): Promise<void> => {
             username,
             password: hashPassword,
             role,
-            active
+            active,
+            lomba
         });
         const saveUser = await newUser.save();
         const getRoles = await getRole();
