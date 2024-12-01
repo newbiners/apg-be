@@ -34,8 +34,8 @@ export const getlomba = async (arrayLomba: string[]) => {
         const data_lomba = await lombaDb.find({ _id: { $in: arrayLomba } });
         const data_result: Record<string, IRoles> = {}; // Define a map for roles
 
-        for (const role of data_lomba) {
-            data_result[role._id.toString()] = role.toObject(); // Convert Mongoose document to plain object
+        for (const lomba of data_lomba) {
+            data_result[lomba._id.toString()] = lomba.toObject(); // Convert Mongoose document to plain object
         }
 
         return data_result;
