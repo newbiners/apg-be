@@ -1,5 +1,5 @@
 import { User } from "../usersModel/userModel";
-import { getRole } from "./getAllUser";
+import { getRole, getlomba } from "./getAllUser";
 import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 export const userPost = async (req: Request, res: Response): Promise<void> => {
@@ -23,9 +23,14 @@ export const userPost = async (req: Request, res: Response): Promise<void> => {
 
         const getUser = await User.find();
 
+        const lomba_id: string[] = [...new Set(getUser.map((user) => user.lomba.toString()))];
+
+        const lombaReturn: any = await getlomba(lomba_id);
+
         const usersWithRoles = getUser.map((user) => {
             const userWithRole = user.toObject();
             userWithRole.role = getRoles[user.role.toString()] || null;
+            userWithRole.lomba = lombaReturn[user.lomba.toString()] || null;
             return userWithRole;
         });
 
