@@ -55,6 +55,7 @@ export const GetAllUsers = async (req: Request, res: Response): Promise<void> =>
 
         // Fetch related lomba data
         const lombaReturn: any = await getlomba(lomba_id);
+        res.status(200).json(lombaReturn);
 
         // Map users with roles and lomba
         const usersWithRoles = getUsers.map((user) => {
