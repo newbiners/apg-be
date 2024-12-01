@@ -54,7 +54,7 @@ export const GetAllUsers = async (req: Request, res: Response): Promise<void> =>
 
         // res.status(200).json(getUsers);
         // Collect unique lomba IDs
-        const lomba_id: string[] = getUsers.map((user) => user.lomba.toString());
+        const lomba_id: string[] = getUsers.map((user) => user.lomba.toString() ?? null);
         res.status(200).json(lomba_id);
 
         // Fetch related lomba data
