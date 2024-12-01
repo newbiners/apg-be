@@ -16,7 +16,7 @@ const UserSchema = new Schema<IUser>({
   name: { type: String, required: true },
   username: { type: String, required: true },
   password: { type: String, required: false },
-  lomba: { type: mongoose.Schema.Types.ObjectId, ref: "Lomba", required: true },
+  lomba: { type: mongoose.Schema.Types.ObjectId, ref: "Lomba", required: false },
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Roles", required: true },
   active: { type: Boolean, required: false, default: false },
 });
