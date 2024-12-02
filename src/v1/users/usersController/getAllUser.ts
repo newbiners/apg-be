@@ -66,7 +66,7 @@ export const GetAllUsers = async (req: Request, res: Response): Promise<void> =>
         const usersWithRoles = getUsers.map((user) => {
             const userWithRole = user.toObject(); // Convert Mongoose document to plain object
             userWithRole.role = getRoles[user.role.toString()] || null; // Assign role or null if not found
-            userWithRole.lomba = user.lomba ? lombaReturn[user.lomba.toString()] || null : null; 
+            // userWithRole.lomba = user.lomba ? lombaReturn[user.lomba.toString()] || null : null; 
             return userWithRole;
         });
 
