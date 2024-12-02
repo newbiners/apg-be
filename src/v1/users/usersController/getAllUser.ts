@@ -52,7 +52,7 @@ export const GetAllUsers = async (req: Request, res: Response): Promise<void> =>
         const getUsers = await User.find();
         const getRoles = await getRole();
 
-        // res.status(200).json(getUsers);
+        res.status(200).json(getUsers);
         // Collect unique lomba IDs
         const lomba_id: string[] = getUsers.map((user) => user.lomba && user.lomba.toString());
         // res.status(200).json(lomba_id);
@@ -66,7 +66,7 @@ export const GetAllUsers = async (req: Request, res: Response): Promise<void> =>
         const usersWithRoles = getUsers.map((user) => {
             const userWithRole = user.toObject(); // Convert Mongoose document to plain object
             userWithRole.role = getRoles[user.role.toString()] || null; // Assign role or null if not found
-            userWithRole.lomba = lombaReturn[user.lomba.toString()] || null; 
+            userWithRole.lomba = user.lomba ? lombaReturn[user.lomba.toString()] || null : null; 
             return userWithRole;
         });
 
