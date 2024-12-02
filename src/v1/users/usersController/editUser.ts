@@ -33,21 +33,27 @@ export const EditUser = async (req: Request, res: Response): Promise<void> => {
         const newUser = await User.findByIdAndUpdate(id, data, { new: true });
 
         // Fetch roles and lomba details
-        const lomba_id = [lomba];
-        const getRoles = await getRole();
-        const getLombas: any = await getlomba(lomba_id);
 
+        const getRoles = await getRole();
         // Fetch all users
         const getUsers = await User.find();
 
+        const lomba_id: string[] = getUsers.map((user) => user.lomba && user.lomba.toString());
+        // res.status(200).json(lomba_id);
+
+        // Fetch related lomba data
+        const lombaReturn: any = await getlomba(lomba_id);
+        // res.status(200).json(lombaReturn);
+
+
         // Map users with roles and lomba
         const usersWithRoles = getUsers.map((user) => {
-            const userWithRole = user.toObject();
-            userWithRole.role = getRoles[user.role.toString()] || null;
-            userWithRole.lomba = getLombas[user.lomba.toString()] || null;
-
+            const userWithRole = user.toObject(); // Convert Mongoose document to plain object
+            userWithRole.role = getRoles[user.role.toString()] || null; // Assign role or null if not found
+            userWithRole.lomba = user.lomba ? lombaReturn[user.lomba.toString()] || null : null; 
             return userWithRole;
         });
+
 
         // Send response
         res.status(200).json(usersWithRoles);
