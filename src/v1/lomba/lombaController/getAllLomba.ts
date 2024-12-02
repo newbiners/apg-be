@@ -7,11 +7,12 @@ export const GetAllLomba = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { user } = req.params;
+    const { id } = req.params;
     var filter: any = {};
 
-    if (user) {
-      const token = user && user.split(' ')[1];
+    if (id) {
+      res.status(200).json(id);
+      const token = id && id.split(' ')[1];
       const decoded: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string);
       const currentUser: any = await User.findOne({ _id: decoded.payload });
 

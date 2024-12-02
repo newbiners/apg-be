@@ -8,7 +8,7 @@ import { authorizeRoles } from "../../../global/authorizeRoles";
 const router = express.Router();
 
 router.get("/", GetAllLomba);
-router.use(authenticateToken, authorizeRoles(['ADMIN', 'JURI']))
+router.use(authenticateToken, authorizeRoles(['ADMIN']))
 router.post("/", PostLomba);
 router.delete("/:id", DeleteLomba);
 router.put("/:id", EditLomba);
