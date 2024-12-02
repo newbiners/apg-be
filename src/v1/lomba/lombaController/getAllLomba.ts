@@ -7,7 +7,7 @@ export const GetAllLomba = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { user } = req.body
+    const { user } = req.params;
     var filter: any = {};
 
     if (user) {
