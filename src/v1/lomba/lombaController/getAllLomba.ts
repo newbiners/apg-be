@@ -11,7 +11,7 @@ export const GetAllLomba = async (
     var filter: any = {};
 
     if (id) {
-      res.status(200).json(id);
+      // res.status(200).json(id);
       const token = id && id.split(' ')[1];
       const decoded: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string);
       const currentUser: any = await User.findOne({ _id: decoded.payload });
