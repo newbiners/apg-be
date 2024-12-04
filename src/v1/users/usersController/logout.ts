@@ -13,11 +13,13 @@ export const userLogout = async (req: Request, res: Response): Promise<void> => 
             const decoded: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string);
             const currentUser: any = await User.findOne({ _id: decoded.payload });
 
-            const role = await roles.findOne({ _id: currentUser.role });
 
 
-            if (currentUser && role && role.name !== "ADMIN") {
-                await User.findByIdAndUpdate(currentUser._id, { active: false }, { new: true });
+            if (currentUser) {
+                const role = await roles.findOne({ _id: currentUser.role });
+                if (role && role.name !== "ADMIN") {
+                    await User.findByIdAndUpdate(currentUser._id, { active: false }, { new: true });
+                }
             }
         }
 
