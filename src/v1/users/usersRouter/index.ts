@@ -18,9 +18,7 @@ router.get('/', GetAllUsers);
 router.put('/:id', EditUser);
 router.delete('/:id', DeleteUser);
 router.get('/:id', GetUserById);
-router.get('/logout/:id', (req, res) => {
-    res.send(`Hello, world! test get id ${req.params.id}`);
-});
+router.get('/logout/:id', userLogout);
 router.post('/', userPost);
 
 export const userRouter = router;
