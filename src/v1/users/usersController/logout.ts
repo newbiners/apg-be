@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import { roles } from "../../roles/rolesModel/rolesModel";
 export const userLogout = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         res.status(200).json({ message: id });
         var filter: any = {};
         if (id) {
