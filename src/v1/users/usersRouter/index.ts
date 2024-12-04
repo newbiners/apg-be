@@ -8,6 +8,7 @@ import { authenticateToken } from '../../../global/authenticateToken';
 import { EditUser } from '../usersController/editUser';
 import { authorizeRoles } from '../../../global/authorizeRoles';
 import { signup } from '../usersController/signup';
+import { userLogout } from '../usersController/logout';
 const router = express.Router();
 
 router.post('/login', userLogin);
@@ -17,6 +18,7 @@ router.get('/', GetAllUsers);
 router.put('/:id', EditUser);
 router.delete('/:id', DeleteUser);
 router.get('/:id', GetUserById);
+router.get('/logout/:id', userLogout);
 router.post('/', userPost);
 
 export const userRouter = router;
