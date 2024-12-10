@@ -173,7 +173,7 @@ export const postJuaraUmumRegu = async (
           item.nilai_juara = index === 0 ? 5 : index === 1 ? 3 : index === 2 ? 1 : 0;
         });
 
-        const lombaName = lombaItem.name.toString();
+        const lombaName = lombaItem._id.toString();
 
         if (!dataArr[lombaName]) {
           dataArr[lombaName] = [];
