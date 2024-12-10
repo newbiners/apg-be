@@ -1,9 +1,8 @@
 // import { Request, Response } from "express";
 // import { juaraUmum } from "../juaraUmumModel/juaraUmumModel";
 // import { regu } from "../../regu/reguModel/reguModel";
-// import { nilaiJuri } from "../../nilaiJuri/nilaiJuriModel/nilaiJuriModel";
-// import { lomba } from "../../lomba/lombaModel/lombaModel";
 // import { nilaiLomba } from "../../nilaiLomba/nilaiLombaModel/nilaiLombaModel";
+// import { lomba } from "../../lomba/lombaModel/lombaModel";
 // import { schools } from "../../schools/schoolsModel/schoolsModel";
 
 // interface RequestBody {
@@ -39,82 +38,83 @@
 //     for (const reguItem of reguData) {
 //       const reguId = reguItem._id.toString();
 //       const pangkalan = await schools.findById(reguItem.school);
+
 //       for (const lombaItem of lombaData) {
 //         const lombaId = lombaItem._id.toString();
 
-//         // Ambil data nilai juri berdasarkan regu dan lomba
-//         const nilaiJuriData: any = await nilaiLomba.find({
+//         // Ambil data nilai lomba berdasarkan regu dan lomba
+//         const nilaiLombaData: any[] = await nilaiLomba.find({
 //           regu: reguId,
 //           lomba: lombaId,
 //         });
 
-//         nilaiJuriData.sort((a: any, b: any) => b.nilai - a.nilai);
+//         nilaiLombaData.sort((a, b) => b.nilai - a.nilai);
 
 //         // Berikan nilai berdasarkan peringkat
-//         for (let i = 0; i < nilaiJuriData.length; i++) {
-//           if (i === 0) {
-//             nilaiJuriData[i].nilai_juara = 5;
-//           } else if (i === 1) {
-//             nilaiJuriData[i].nilai_juara = 3;
-//           } else if (i === 2) {
-//             nilaiJuriData[i].nilai_juara = 1;
-//           } else {
-//             nilaiJuriData[i].nilai_juara = 0;
-//           }
-//         }
-
-//         // const totalNilai = nilaiJuriData.reduce((sum: number, item: any) => sum + item.nilai, 0);
-//         // const totalJuara = nilaiJuriData.reduce((sum: number, item: any) => sum + item.nilai_juara, 0);
+//         nilaiLombaData.forEach((item, index) => {
+//           item.nilai_juara = index === 0 ? 5 : index === 1 ? 3 : index === 2 ? 1 : 0;
+//         });
 
 //         const lombaName = lombaItem.name.toString();
 
-//         // Inisialisasi array jika belum ada
 //         if (!dataArr[lombaName]) {
 //           dataArr[lombaName] = [];
 //         }
 
-
-//         for (let i = 0; i < nilaiJuriData.length; i++) {
+//         nilaiLombaData.forEach((item) => {
 //           dataArr[lombaName].push({
 //             regu: reguItem,
 //             regu_id: reguItem._id,
-//             pangkalan: pangkalan,
+//             pangkalan: pangkalan || null,
 //             lomba: lombaItem,
 //             lomba_id: lombaItem._id,
-//             nilai: nilaiJuriData[i].nilai,
-//             nilai_juara: nilaiJuriData[i].nilai_juara,
-//             type: type,
-//             gender: gender
+//             nilai: item.nilai,
+//             nilai_juara: item.nilai_juara,
+//             type,
+//             gender,
 //           });
-//         }
-//         // Tambahkan nilai juri ke data array
+//         });
 //       }
 //     }
 
-//     // Simpan data ke database
+//     // Format data untuk penyimpanan
+//     const dataJuara = Object.values(dataArr).flatMap((data) =>
+//       data.map((item) => ({
+//         name: item.lomba,
+//         header: item.regu,
+//         pangkalan: item.pangkalan,
+//         type: item.type,
+//         gender: item.gender,
+//         nilai: item.nilai_juara,
+//       }))
+//     );
 
-//     var data_juara: any = [];
-//     for (let data of Object.values(dataArr)) {
-//       data_juara.push({
-//         name: data.lomba,
-//         header: data.regu,
-//         pangkalan: data.pangkalan,
-//         type: type,
-//         gender: gender,
-//         nilai: data.nilai
-//       })
+//     // Simpan data ke database
+//     await juaraUmum.insertMany(dataJuara);
+
+//     var data_header: any = [];
+//     for (const data of dataJuara) {
+//       var key = data.header._id.toString();
+//       if (!data_header[key]) {
+//         data_header[key].push({
+//           name: data.header,
+//           type: data.type,
+//           gender: data.gender,
+//           pangkalan: data.pangkalan,
+//           nilai: data.nilai
+//         });
+//       } else {
+//         data_header[key].nilai += data.nilai
+//       }
 //     }
 
-//     await juaraUmum.insertMany(Object.values(data_juara));
-
 //     // Kirim hasil
-//     res.status(200).json(dataArr);
+//     res.status(200).json({ "data_detail": dataJuara, "data_header": data_header });
 //   } catch (err) {
-//     console.error("Error fetching data:", err);
+//     console.error("Error processing data:", err);
 //     res.status(500).json({ error: "Internal Server Error." });
 //   }
 // };
-
 
 import { Request, Response } from "express";
 import { juaraUmum } from "../juaraUmumModel/juaraUmumModel";
@@ -210,24 +210,31 @@ export const postJuaraUmumRegu = async (
     // Simpan data ke database
     await juaraUmum.insertMany(dataJuara);
 
-    var data_header: any = [];
-    for (const data of dataJuara) {
-      var key = data.header._id.toString();
-      if (!data_header[key]) {
-        data_header[key].push({
+    // Kumpulkan data header
+    const dataHeaderMap = new Map<string, any>();
+
+    dataJuara.forEach((data) => {
+      const key = data.header._id.toString();
+
+      if (!dataHeaderMap.has(key)) {
+        dataHeaderMap.set(key, {
           name: data.header,
           type: data.type,
           gender: data.gender,
           pangkalan: data.pangkalan,
-          nilai: data.nilai
+          nilai: data.nilai,
         });
       } else {
-        data_header[key].nilai += data.nilai
+        const existingData = dataHeaderMap.get(key);
+        existingData.nilai += data.nilai;
+        dataHeaderMap.set(key, existingData);
       }
-    }
+    });
+
+    const dataHeader = Array.from(dataHeaderMap.values());
 
     // Kirim hasil
-    res.status(200).json({ "data_detail": dataJuara, "data_header": data_header });
+    res.status(200).json({ data_detail: dataJuara, data_header: dataHeader });
   } catch (err) {
     console.error("Error processing data:", err);
     res.status(500).json({ error: "Internal Server Error." });
