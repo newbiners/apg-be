@@ -164,6 +164,7 @@ export const postJuaraUmumRegu = async (
         const nilaiLombaData: any[] = await nilaiLomba.find({
           regu: reguId,
           lomba: lombaId,
+          school: reguItem.school,
         });
 
         nilaiLombaData.sort((a, b) => b.nilai - a.nilai);
