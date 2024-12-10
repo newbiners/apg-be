@@ -32,7 +32,7 @@ export const postJuaraUmumRegu = async (
 
 
 
-    var data_arr: any = {};
+    var data_arr: any = [];
     for (let i = 0; i < regu_data.length; i++) {
       var key = regu_data[i]._id.toString();
 
@@ -41,7 +41,7 @@ export const postJuaraUmumRegu = async (
           regu: key,
           lomba: lomba_data[j]._id
         })
-        data_arr[lomba_data[i].name.toString()].push(nilaiJuriData)
+        data_arr[lomba_data[j].name.toString()].push(nilaiJuriData)
       }
     }
 
