@@ -7,8 +7,8 @@ import { IUser } from "../../users/usersModel/userModel";
 import { INilaiLomba } from "../../nilaiLomba/nilaiLombaModel/nilaiLombaModel";
 import { INilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/nilaiLombaDetailModel";
 export interface IJuaraUmum extends Document {
-  name: mongoose.Schema.Types.ObjectId;
-  header: mongoose.Schema.Types.ObjectId;
+  name: object;
+  header: object;
   nilai: number;
   gender: string;
   type: string;
@@ -16,11 +16,11 @@ export interface IJuaraUmum extends Document {
 
 const JuaraUmumSchema = new Schema<IJuaraUmum>({
   name: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Object,
     required: true,
   },
   header: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Object,
     required: false,
   },
   type: { type: String, required: true },
