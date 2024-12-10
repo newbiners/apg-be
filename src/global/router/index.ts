@@ -8,6 +8,7 @@ import { lombaDetailRouter } from "../../v1/lombaDetail/lombaDetailRouter";
 import { nilaiLombaRouter } from "../../v1/nilaiLomba/NilaiLombaRouter";
 import { nilaiLombaDetailRouter } from "../../v1/nilaiLombaDetail/NilaiLombaDetailRouter";
 import { nilaiJuriRouter } from "../../v1/nilaiJuri/NilaiJuriRouter";
+import { juaraUmumRouter } from "../../v1/generate_juara_umum/NilaiJuriRouter";
 const router = express.Router();
 router.use("/users", userRouter);
 router.use("/roles", rolesRouter);
@@ -18,4 +19,5 @@ router.use("/lomba-detail", lombaDetailRouter);
 router.use("/nilai-lomba", nilaiLombaRouter);
 router.use("/nilai-lomba-detail", nilaiLombaDetailRouter);
 router.use("/nilai-juri", nilaiJuriRouter)
+router.use("juara-umum", juaraUmumRouter)
 export const Routers = router;
