@@ -78,6 +78,7 @@ export const postJuaraUmumRegu = async (
       return lombaData.map((entry) => ({
         name: lombaName,
         header: entry.regu_id,
+        regu: entry.regu,
         type,
         gender,
         nilai: entry.nilai,
