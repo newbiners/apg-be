@@ -139,7 +139,7 @@ export const postJuaraUmumRegu = async (
         const lombaId = lombaItem._id.toString();
 
         // Ambil data nilai juri berdasarkan regu dan lomba
-        const nilaiJuriData = await nilaiLomba.find({
+        const nilaiJuriData: any = await nilaiLomba.find({
           regu: reguId,
           lomba: lombaId,
         });
@@ -149,17 +149,18 @@ export const postJuaraUmumRegu = async (
         // Berikan nilai berdasarkan peringkat
         for (let i = 0; i < nilaiJuriData.length; i++) {
           if (i === 0) {
-            nilaiJuriData[i].nilai = 5;
+            nilaiJuriData[i].nilai_juara = 5;
           } else if (i === 1) {
-            nilaiJuriData[i].nilai = 3;
+            nilaiJuriData[i].nilai_juara = 3;
           } else if (i === 2) {
-            nilaiJuriData[i].nilai = 1;
+            nilaiJuriData[i].nilai_juara = 1;
           } else {
-            nilaiJuriData[i].nilai = 0;
+            nilaiJuriData[i].nilai_juara = 0;
           }
         }
 
         const totalNilai = nilaiJuriData.reduce((sum: number, item: any) => sum + item.nilai, 0);
+        const totalJuara = nilaiJuriData.reduce((sum: number, item: any) => sum + item.nilai_juara, 0);
 
         const lombaName = lombaItem.name.toString();
 
@@ -178,6 +179,7 @@ export const postJuaraUmumRegu = async (
           lomba: lombaItem,
           lomba_id: lombaItem._id,
           nilai: totalNilai,
+          nilai_juara: totalJuara,
         });
       }
     }

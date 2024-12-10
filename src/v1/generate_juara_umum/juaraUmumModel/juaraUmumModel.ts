@@ -8,6 +8,7 @@ import { INilaiLomba } from "../../nilaiLomba/nilaiLombaModel/nilaiLombaModel";
 import { INilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/nilaiLombaDetailModel";
 export interface IJuaraUmum extends Document {
   name: object;
+  pangkalan: object;
   header: object;
   nilai: number;
   gender: string;
@@ -20,6 +21,10 @@ const JuaraUmumSchema = new Schema<IJuaraUmum>({
     required: true,
   },
   header: {
+    type: Object,
+    required: false,
+  },
+  pangkalan: {
     type: Object,
     required: false,
   },
