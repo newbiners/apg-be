@@ -210,8 +210,24 @@ export const postJuaraUmumRegu = async (
     // Simpan data ke database
     await juaraUmum.insertMany(dataJuara);
 
+    var data_header: any = [];
+    for (const data of dataJuara) {
+      var key = data.header._id.toString();
+      if (!data_header[key]) {
+        data_header[key].push({
+          name: data.header,
+          type: data.type,
+          gender: data.gender,
+          pangkalan: data.pangkalan,
+          nilai: data.nilai
+        });
+      } else {
+        data_header[key].nilai += data.nilai
+      }
+    }
+
     // Kirim hasil
-    res.status(200).json(dataJuara);
+    res.status(200).json({ "data_detail": dataJuara, "data_header": data_header });
   } catch (err) {
     console.error("Error processing data:", err);
     res.status(500).json({ error: "Internal Server Error." });
