@@ -26,7 +26,7 @@ export const postJuaraUmumRegu = async (
     await juaraUmum.deleteMany(filter);
 
     const regu_data = await regu.find(filterRegu);
-
+    regu_data.sort((a: any, b: any) => b.nilai - a.nilai);
     res.status(200).json(regu_data);
 
     const getData = await juaraUmum.find(filter);
