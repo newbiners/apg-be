@@ -119,8 +119,10 @@ export const postJuaraUmumRegu = async (
         // Tambahkan nilai juri ke data array
         dataArr[lombaName].push({
           regu: reguItem.name,
+          regu_id: reguItem._id,
           pangkalan: reguItem.school,
           lomba: lombaItem.name,
+          lomba_id: lombaItem._id,
           nilai: nilai,
         });
       }
