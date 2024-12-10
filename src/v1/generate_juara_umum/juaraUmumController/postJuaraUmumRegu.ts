@@ -134,7 +134,7 @@ export const postJuaraUmumRegu = async (
 
     for (const reguItem of reguData) {
       const reguId = reguItem._id.toString();
-
+      const pangkalan = await schools.findById(reguItem.school);
       for (const lombaItem of lombaData) {
         const lombaId = lombaItem._id.toString();
 
@@ -159,8 +159,8 @@ export const postJuaraUmumRegu = async (
           }
         }
 
-        const totalNilai = nilaiJuriData.reduce((sum: number, item: any) => sum + item.nilai, 0);
-        const totalJuara = nilaiJuriData.reduce((sum: number, item: any) => sum + item.nilai_juara, 0);
+        // const totalNilai = nilaiJuriData.reduce((sum: number, item: any) => sum + item.nilai, 0);
+        // const totalJuara = nilaiJuriData.reduce((sum: number, item: any) => sum + item.nilai_juara, 0);
 
         const lombaName = lombaItem.name.toString();
 
@@ -169,18 +169,19 @@ export const postJuaraUmumRegu = async (
           dataArr[lombaName] = [];
         }
 
-        const pangkalan = await schools.findById(reguItem.school);
 
+        for (let i = 0; i < nilaiJuriData.length; i++) {
+          dataArr[lombaName].push({
+            regu: reguItem,
+            regu_id: reguItem._id,
+            pangkalan: pangkalan,
+            lomba: lombaItem,
+            lomba_id: lombaItem._id,
+            nilai: nilaiJuriData[i].nilai,
+            nilai_juara: nilaiJuriData[i].nilai_juara,
+          });
+        }
         // Tambahkan nilai juri ke data array
-        dataArr[lombaName].push({
-          regu: reguItem,
-          regu_id: reguItem._id,
-          pangkalan: pangkalan,
-          lomba: lombaItem,
-          lomba_id: lombaItem._id,
-          nilai: totalNilai,
-          nilai_juara: totalJuara,
-        });
       }
     }
 
