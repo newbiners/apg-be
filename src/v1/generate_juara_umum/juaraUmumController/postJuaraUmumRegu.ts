@@ -195,6 +195,7 @@ export const postJuaraUmumRegu = async (
       }
     }
 
+    res.status(200).json(dataArr);
     // Format data untuk penyimpanan
     const dataJuara = Object.values(dataArr).flatMap((data) =>
       data.map((item) => ({
