@@ -1,3 +1,4 @@
+
 // import { Request, Response } from "express";
 // import { juaraUmum } from "../juaraUmumModel/juaraUmumModel";
 // import { regu } from "../../regu/reguModel/reguModel";
@@ -46,16 +47,17 @@
 //         const nilaiLombaData: any[] = await nilaiLomba.find({
 //           regu: reguId,
 //           lomba: lombaId,
+//           school: reguItem.school,
 //         });
 
 //         nilaiLombaData.sort((a, b) => b.nilai - a.nilai);
 
 //         // Berikan nilai berdasarkan peringkat
-//         nilaiLombaData.forEach((item, index) => {
-//           item.nilai_juara = index === 0 ? 5 : index === 1 ? 3 : index === 2 ? 1 : 0;
-//         });
+//         // nilaiLombaData.forEach((item, index) => {
+//         //   item.nilai_juara = index === 0 ? 5 : index === 1 ? 3 : index === 2 ? 1 : 0;
+//         // });
 
-//         const lombaName = lombaItem.name.toString();
+//         const lombaName = lombaItem._id.toString();
 
 //         if (!dataArr[lombaName]) {
 //           dataArr[lombaName] = [];
@@ -68,8 +70,8 @@
 //             pangkalan: pangkalan || null,
 //             lomba: lombaItem,
 //             lomba_id: lombaItem._id,
+//             nilaiLomba: item,
 //             nilai: item.nilai,
-//             nilai_juara: item.nilai_juara,
 //             type,
 //             gender,
 //           });
@@ -77,44 +79,57 @@
 //       }
 //     }
 
+
 //     // Format data untuk penyimpanan
 //     const dataJuara = Object.values(dataArr).flatMap((data) =>
+//       data.sort((a: any, b: any) => b.nilai - a.nilai);
+//     // return data
 //       data.map((item) => ({
 //         name: item.lomba,
 //         header: item.regu,
 //         pangkalan: item.pangkalan,
 //         type: item.type,
 //         gender: item.gender,
-//         nilai: item.nilai_juara,
+//         nilai: item.nilai,
 //       }))
 //     );
 
+//     res.status(200).json(dataJuara);
 //     // Simpan data ke database
 //     await juaraUmum.insertMany(dataJuara);
 
-//     var data_header: any = [];
-//     for (const data of dataJuara) {
-//       var key = data.header._id.toString();
-//       if (!data_header[key]) {
-//         data_header[key].push({
+//     // Kumpulkan data header
+//     const dataHeaderMap = new Map<string, any>();
+
+//     dataJuara.forEach((data) => {
+//       const key = data.header._id.toString();
+
+//       if (!dataHeaderMap.has(key)) {
+//         dataHeaderMap.set(key, {
 //           name: data.header,
 //           type: data.type,
 //           gender: data.gender,
 //           pangkalan: data.pangkalan,
-//           nilai: data.nilai
+//           nilai: data.nilai,
+//           header: null
 //         });
 //       } else {
-//         data_header[key].nilai += data.nilai
+//         const existingData = dataHeaderMap.get(key);
+//         existingData.nilai += data.nilai;
+//         dataHeaderMap.set(key, existingData);
 //       }
-//     }
+//     });
 
+//     const dataHeader = Array.from(dataHeaderMap.values());
+//     await juaraUmum.insertMany(dataHeader);
 //     // Kirim hasil
-//     res.status(200).json({ "data_detail": dataJuara, "data_header": data_header });
+//     res.status(200).json({ data_detail: dataJuara, data_header: dataHeader });
 //   } catch (err) {
 //     console.error("Error processing data:", err);
 //     res.status(500).json({ error: "Internal Server Error." });
 //   }
 // };
+
 
 import { Request, Response } from "express";
 import { juaraUmum } from "../juaraUmumModel/juaraUmumModel";
@@ -164,12 +179,10 @@ export const postJuaraUmumRegu = async (
         const nilaiLombaData: any[] = await nilaiLomba.find({
           regu: reguId,
           lomba: lombaId,
-          school: reguItem.school,
         });
 
         nilaiLombaData.sort((a, b) => b.nilai - a.nilai);
 
-        // Berikan nilai berdasarkan peringkat
         nilaiLombaData.forEach((item, index) => {
           item.nilai_juara = index === 0 ? 5 : index === 1 ? 3 : index === 2 ? 1 : 0;
         });
@@ -187,7 +200,6 @@ export const postJuaraUmumRegu = async (
             pangkalan: pangkalan || null,
             lomba: lombaItem,
             lomba_id: lombaItem._id,
-            nilaiLomba: item,
             nilai: item.nilai,
             nilai_juara: item.nilai_juara,
             type,
@@ -197,7 +209,6 @@ export const postJuaraUmumRegu = async (
       }
     }
 
-    // res.status(200).json(dataArr);
     // Format data untuk penyimpanan
     const dataJuara = Object.values(dataArr).flatMap((data) =>
       data.map((item) => ({
@@ -210,7 +221,7 @@ export const postJuaraUmumRegu = async (
       }))
     );
 
-    // Simpan data ke database
+    // Simpan data detail ke database
     await juaraUmum.insertMany(dataJuara);
 
     // Kumpulkan data header
@@ -226,7 +237,6 @@ export const postJuaraUmumRegu = async (
           gender: data.gender,
           pangkalan: data.pangkalan,
           nilai: data.nilai,
-          header: null
         });
       } else {
         const existingData = dataHeaderMap.get(key);
@@ -236,7 +246,10 @@ export const postJuaraUmumRegu = async (
     });
 
     const dataHeader = Array.from(dataHeaderMap.values());
+
+    // Simpan data header ke database
     await juaraUmum.insertMany(dataHeader);
+
     // Kirim hasil
     res.status(200).json({ data_detail: dataJuara, data_header: dataHeader });
   } catch (err) {
@@ -244,3 +257,4 @@ export const postJuaraUmumRegu = async (
     res.status(500).json({ error: "Internal Server Error." });
   }
 };
+
