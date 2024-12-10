@@ -19,5 +19,5 @@ router.use("/lomba-detail", lombaDetailRouter);
 router.use("/nilai-lomba", nilaiLombaRouter);
 router.use("/nilai-lomba-detail", nilaiLombaDetailRouter);
 router.use("/nilai-juri", nilaiJuriRouter)
-router.use("juara-umum", juaraUmumRouter)
+router.use("/juara-umum", juaraUmumRouter)
 export const Routers = router;
