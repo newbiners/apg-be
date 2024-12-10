@@ -104,6 +104,11 @@ export const postJuaraUmumRegu = async (
           lomba: lombaId,
         });
 
+        var nilai = 0;
+        for (let i = 0; i < nilaiJuriData.length; i++) {
+          nilai += nilaiJuriData[i].nilai;
+        }
+
         const lombaName = lombaItem.name.toString();
 
         // Inisialisasi array jika belum ada
@@ -114,7 +119,9 @@ export const postJuaraUmumRegu = async (
         // Tambahkan nilai juri ke data array
         dataArr[lombaName].push({
           regu: reguItem.name,
-          nilaiJuri: nilaiJuriData,
+          pangkalan: reguItem.school,
+          lomba: lombaItem.name,
+          nilai: nilai,
         });
       }
     }
