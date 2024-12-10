@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { juaraUmum } from "../juaraUmumModel/juaraUmumModel";
 import { regu } from "../../regu/reguModel/reguModel";
+import { nilaiJuri } from "../../nilaiJuri/nilaiJuriModel/nilaiJuriModel";
+import { lomba } from "../../lomba/lombaModel/lombaModel";
 interface RequestBody {
   type: string; // Ganti `any` dengan tipe yang sesuai
   gender?: string; // Ganti `any` dengan tipe yang sesuai, jika opsional tetap gunakan tanda `?`
@@ -26,8 +28,24 @@ export const postJuaraUmumRegu = async (
     await juaraUmum.deleteMany(filter);
 
     const regu_data = await regu.find(filterRegu);
-    regu_data.sort((a: any, b: any) => b.nilai - a.nilai);
-    res.status(200).json(regu_data);
+    const lomba_data = await lomba.find({ type: type });
+
+
+
+    var data_arr: any = {};
+    for (let i = 0; i < regu_data.length; i++) {
+      var key = regu_data[i]._id.toString();
+
+      for (let j = 0; j < lomba_data.length; j++) {
+        const nilaiJuriData = await nilaiJuri.find({
+          regu: key,
+          lomba: lomba_data[j]._id
+        })
+        data_arr[key].push(nilaiJuriData)
+      }
+    }
+
+    res.status(200).json(data_arr);
 
     const getData = await juaraUmum.find(filter);
 
