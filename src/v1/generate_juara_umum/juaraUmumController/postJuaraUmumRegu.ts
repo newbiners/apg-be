@@ -181,10 +181,10 @@ export const postJuaraUmumRegu = async (
 
         nilaiLombaData.forEach((item) => {
           dataArr[lombaName].push({
-            regu: reguItem.name,
+            regu: reguItem,
             regu_id: reguItem._id,
-            pangkalan: pangkalan?.name || "Unknown",
-            lomba: lombaItem.name,
+            pangkalan: pangkalan || null,
+            lomba: lombaItem,
             lomba_id: lombaItem._id,
             nilai: item.nilai,
             nilai_juara: item.nilai_juara,
