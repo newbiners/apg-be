@@ -186,6 +186,7 @@ export const postJuaraUmumRegu = async (
             pangkalan: pangkalan || null,
             lomba: lombaItem,
             lomba_id: lombaItem._id,
+            nilaiLomba: item,
             nilai: item.nilai,
             nilai_juara: item.nilai_juara,
             type,
