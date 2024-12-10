@@ -197,7 +197,7 @@ export const postJuaraUmumRegu = async (
       }
     }
 
-    res.status(200).json(dataArr);
+    // res.status(200).json(dataArr);
     // Format data untuk penyimpanan
     const dataJuara = Object.values(dataArr).flatMap((data) =>
       data.map((item) => ({
@@ -226,6 +226,7 @@ export const postJuaraUmumRegu = async (
           gender: data.gender,
           pangkalan: data.pangkalan,
           nilai: data.nilai,
+          header: null
         });
       } else {
         const existingData = dataHeaderMap.get(key);
@@ -235,7 +236,7 @@ export const postJuaraUmumRegu = async (
     });
 
     const dataHeader = Array.from(dataHeaderMap.values());
-
+    await juaraUmum.insertMany(dataHeader);
     // Kirim hasil
     res.status(200).json({ data_detail: dataJuara, data_header: dataHeader });
   } catch (err) {
