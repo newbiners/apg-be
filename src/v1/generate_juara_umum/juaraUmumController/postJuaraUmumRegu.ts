@@ -41,7 +41,7 @@ export const postJuaraUmumRegu = async (
           regu: key,
           lomba: lomba_data[j]._id
         })
-        data_arr[key].push(nilaiJuriData)
+        data_arr[lomba_data[i].name.toString()].push(nilaiJuriData)
       }
     }
 
