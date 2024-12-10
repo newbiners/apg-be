@@ -211,7 +211,7 @@ export const postJuaraUmumRegu = async (
     await juaraUmum.insertMany(dataJuara);
 
     // Kirim hasil
-    res.status(200).json({ message: "Data successfully processed.", data: dataJuara });
+    res.status(200).json(dataJuara);
   } catch (err) {
     console.error("Error processing data:", err);
     res.status(500).json({ error: "Internal Server Error." });
