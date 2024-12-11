@@ -263,7 +263,7 @@ export const postJuaraUmumRegu = async (
       }
 
     }
-    res.status(200).json(dataJuara);
+    // res.status(200).json(dataJuara);
 
     // Simpan data detail ke database
     await juaraUmum.insertMany(dataJuara);
