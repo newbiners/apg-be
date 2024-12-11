@@ -25,17 +25,16 @@ export const getJuaraUmum = async (
 
         const getData = await juaraUmum.find(filter);
 
-        var data_arr: any = {};
+        var data_header: any[] = [];
+        var data_detail: any[] = [];
         for (let i = 0; i < getData.length; i++) {
-            var key = getData[i].name.toString();
-            if (!data_arr[key]) {
-
-                data_arr[key] = getData[i];
+            if (!getData[i].header) {
+                data_header.push(getData[i])
             } else {
-                data_arr[key]['nilai'] += getData[i].nilai;
+                data_detail.push(getData[i])
             }
         }
-        res.status(200).json(data_arr);
+        res.status(200).json({ data_detail: data_detail, data_header: data_header });
     } catch (err) {
         console.error("Error fetching data:", err);
         res.status(500).json({ error: "Internal Server Error." });
