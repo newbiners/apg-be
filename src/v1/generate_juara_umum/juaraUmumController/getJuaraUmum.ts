@@ -46,8 +46,8 @@ export const getJuaraUmum = async (
 
         var data_finis: any[] = [];
         for (let i = 0; i < data_header.length; i++) {
-            const school = await schools.findById(data_header[i].school);
-            data_header[i].school = school;
+            const school = await schools.findById(data_header[i].name.school);
+            data_header[i].name.school = school;
             data_finis.push(data_header[i])
         }
 
