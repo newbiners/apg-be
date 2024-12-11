@@ -219,6 +219,7 @@ export const postJuaraUmumRegu = async (
       dataArr1[y].sort((a: any, b: any) => b.nilai_default - a.nilai_default)
 
       for (let i = 0; i < dataArr1[y].length; i++) {
+        dataArr1[y][i].regu.pangkalan = dataArr1[y][i].pangkalan
         if (i == 0) {
           dataArr1[y][i].nilai = 5
           dataJuara.push({
