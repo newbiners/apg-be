@@ -212,10 +212,12 @@ export const postJuaraUmumRegu = async (
 
     const dataJuara: any[] = [];
 
+    var dataArr1 = Object.values(dataArr);
+    res.status(200).json(dataArr1);
+
     for (let y = 0; dataArr.length; y++) {
       dataJuara.push(dataArr[y]);
     }
-    res.status(200).json(dataJuara);
 
 
     // Simpan data detail ke database
