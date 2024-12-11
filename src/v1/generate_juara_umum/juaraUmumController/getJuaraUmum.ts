@@ -36,14 +36,14 @@ export const getJuaraUmum = async (
         }
 
 
-        await Promise.all(
+        var data_finis = await Promise.all(
             data_header.map(async (x) => {
                 const school = await schools.findById(x.school);
                 x.school = school;
             })
         );
 
-        res.status(200).json({ data_detail: data_detail, data_header: data_header });
+        res.status(200).json({ data_detail: data_detail, data_header: data_finis });
     } catch (err) {
         console.error("Error fetching data:", err);
         res.status(500).json({ error: "Internal Server Error." });
