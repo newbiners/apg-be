@@ -36,13 +36,20 @@ export const getJuaraUmum = async (
         }
 
 
-        // var data_finis = await Promise.all(
-        var data_finis = data_header.map(async (x) => {
-                const school = await schools.findById(x.school);
-                x.school = school;
-                return x
-            });
-        // );
+        // // var data_finis = await Promise.all(
+        // var data_finis = data_header.map(async (x) => {
+        //         const school = await schools.findById(x.school);
+        //         x.school = school;
+        //         return x
+        //     });
+        // // );
+
+        var data_finis: any[] = [];
+        for (let i = 0; i < data_header.length; i++) {
+            const school = await schools.findById(data_header[i].school);
+            data_header[i].school = school;
+            data_finis.push(data_header[i])
+        }
 
         res.status(200).json({ data_detail: data_detail, data_header: data_finis });
     } catch (err) {
