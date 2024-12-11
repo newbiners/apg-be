@@ -219,8 +219,8 @@ export const postJuaraUmumRegu = async (
       dataArr1[y].sort((a: any, b: any) => b.nilai_default - a.nilai_default)
 
       for (let i = 0; i < dataArr1[y].length; i++) {
-        dataArr1[y][i].regu.pangkalan = dataArr1[y][i].pangkalan
         if (i == 0) {
+          dataArr1[y][i].regu.school = dataArr1[y][i].pangkalan
           dataArr1[y][i].nilai = 5
           dataJuara.push({
             name: dataArr1[y][i].lomba,
@@ -231,6 +231,7 @@ export const postJuaraUmumRegu = async (
             gender: gender
           });
         } else if (i == 1) {
+          dataArr1[y][i].regu.school = dataArr1[y][i].pangkalan
           dataArr1[y][i].nilai = 3
           dataJuara.push({
             name: dataArr1[y][i].lomba,
@@ -241,6 +242,7 @@ export const postJuaraUmumRegu = async (
             gender: gender
           });
         } else if (i == 2) {
+          dataArr1[y][i].regu.school = dataArr1[y][i].pangkalan
           dataArr1[y][i].nilai = 1
           dataJuara.push({
             name: dataArr1[y][i].lomba,
@@ -251,6 +253,7 @@ export const postJuaraUmumRegu = async (
             gender: gender
           });
         } else {
+          dataArr1[y][i].regu.school = dataArr1[y][i].pangkalan
           dataArr1[y][i].nilai = 0
           dataJuara.push({
             name: dataArr1[y][i].lomba,
