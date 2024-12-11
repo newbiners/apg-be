@@ -179,13 +179,14 @@ export const postJuaraUmumRegu = async (
         const nilaiLombaData: any[] = await nilaiLomba.find({
           regu: reguId,
           lomba: lombaId,
+          // school: reguItem.school,
         });
 
-        nilaiLombaData.sort((a, b) => b.nilai - a.nilai);
+        // nilaiLombaData.sort((a, b) => b.nilai - a.nilai);
 
-        nilaiLombaData.forEach((item, index) => {
-          item.nilai_juara = index === 0 ? 5 : index === 1 ? 3 : index === 2 ? 1 : 0;
-        });
+        // nilaiLombaData.forEach((item, index) => {
+        //   item.nilai_juara = index === 0 ? 5 : index === 1 ? 3 : index === 2 ? 1 : 0;
+        // });
 
         const lombaName = lombaItem._id.toString();
 
@@ -201,14 +202,14 @@ export const postJuaraUmumRegu = async (
             lomba: lombaItem,
             lomba_id: lombaItem._id,
             nilai: item.nilai,
-            nilai_juara: item.nilai_juara,
+            // nilai_juara: item.nilai_juara,
             type,
             gender,
           });
         });
       }
     }
-
+    res.status(200).json(dataArr);
     // Format data untuk penyimpanan
     const dataJuara = Object.values(dataArr).flatMap((data) =>
       data.map((item) => ({
