@@ -221,16 +221,44 @@ export const postJuaraUmumRegu = async (
       for (let i = 0; i < dataArr1[y].length; i++) {
         if (i == 0) {
           dataArr1[y][i].nilai = 5
-          dataJuara.push(dataArr1[y][i]);
+          dataJuara.push({
+            name: dataArr1[y][i].lomba,
+            header: dataArr1[y][i].regu,
+            pangkalan: dataArr1[y][i].pangkalan,
+            nilai: dataArr1[y][i].nilai,
+            type: type,
+            gender: gender
+          });
         } else if (i == 1) {
           dataArr1[y][i].nilai = 3
-          dataJuara.push(dataArr1[y][i]);
+          dataJuara.push({
+            name: dataArr1[y][i].lomba,
+            header: dataArr1[y][i].regu,
+            pangkalan: dataArr1[y][i].pangkalan,
+            nilai: dataArr1[y][i].nilai,
+            type: type,
+            gender: gender
+          });
         } else if (i == 2) {
           dataArr1[y][i].nilai = 1
-          dataJuara.push(dataArr1[y][i]);
+          dataJuara.push({
+            name: dataArr1[y][i].lomba,
+            header: dataArr1[y][i].regu,
+            pangkalan: dataArr1[y][i].pangkalan,
+            nilai: dataArr1[y][i].nilai,
+            type: type,
+            gender: gender
+          });
         } else {
           dataArr1[y][i].nilai = 0
-          dataJuara.push(dataArr1[y][i]);
+          dataJuara.push({
+            name: dataArr1[y][i].lomba,
+            header: dataArr1[y][i].regu,
+            pangkalan: dataArr1[y][i].pangkalan,
+            nilai: dataArr1[y][i].nilai,
+            type: type,
+            gender: gender
+          });
         }
       }
 
