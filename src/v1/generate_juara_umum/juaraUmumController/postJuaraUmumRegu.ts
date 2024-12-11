@@ -209,18 +209,14 @@ export const postJuaraUmumRegu = async (
         });
       }
     }
-    res.status(200).json(dataArr);
-    // Format data untuk penyimpanan
-    const dataJuara = Object.values(dataArr).flatMap((data) =>
-      data.map((item) => ({
-        name: item.lomba,
-        header: item.regu,
-        pangkalan: item.pangkalan,
-        type: item.type,
-        gender: item.gender,
-        nilai: item.nilai_juara,
-      }))
-    );
+
+    const dataJuara: any[] = [];
+
+    for (let y = 0; dataArr.length; y++) {
+      dataJuara.push(dataArr[y]);
+    }
+    res.status(200).json(dataJuara);
+
 
     // Simpan data detail ke database
     await juaraUmum.insertMany(dataJuara);
