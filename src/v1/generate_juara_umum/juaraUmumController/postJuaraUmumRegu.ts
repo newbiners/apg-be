@@ -216,7 +216,9 @@ export const postJuaraUmumRegu = async (
 
     const dataJuara: any[] = [];
     for (let y = 0; y < dataArr1.length; y++) {
+      dataArr1[y].sort((a: any, b: any) => b.nilai - a.nilai)
       dataJuara.push(dataArr1[y]);
+
     }
     res.status(200).json(dataJuara);
 
