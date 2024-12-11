@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { juaraUmum } from "../juaraUmumModel/juaraUmumModel";
-
+import { schools } from "../../schools/schoolsModel/schoolsModel";
 interface RequestBody {
     type: string; // Ganti `any` dengan tipe yang sesuai
     gender?: string; // Ganti `any` dengan tipe yang sesuai, jika opsional tetap gunakan tanda `?`
@@ -34,6 +34,15 @@ export const getJuaraUmum = async (
                 data_detail.push(getData[i])
             }
         }
+
+
+        await Promise.all(
+            data_header.map(async (x) => {
+                const school = await schools.findById(x.school);
+                x.school = school;
+            })
+        );
+
         res.status(200).json({ data_detail: data_detail, data_header: data_header });
     } catch (err) {
         console.error("Error fetching data:", err);
