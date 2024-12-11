@@ -36,12 +36,13 @@ export const getJuaraUmum = async (
         }
 
 
-        var data_finis = await Promise.all(
-            data_header.map(async (x) => {
+        // var data_finis = await Promise.all(
+        var data_finis = data_header.map(async (x) => {
                 const school = await schools.findById(x.school);
                 x.school = school;
-            })
-        );
+                return x
+            });
+        // );
 
         res.status(200).json({ data_detail: data_detail, data_header: data_finis });
     } catch (err) {
