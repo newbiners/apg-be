@@ -201,7 +201,7 @@ export const postJuaraUmumRegu = async (
             pangkalan: pangkalan || null,
             lomba: lombaItem,
             lomba_id: lombaItem._id,
-            nilai: item.nilai,
+            nilai_default: item.nilai,
             // nilai_juara: item.nilai_juara,
             type,
             gender,
@@ -216,8 +216,23 @@ export const postJuaraUmumRegu = async (
 
     const dataJuara: any[] = [];
     for (let y = 0; y < dataArr1.length; y++) {
-      dataArr1[y].sort((a: any, b: any) => a.nilai - b.nilai)
-      dataJuara.push(dataArr1[y]);
+      dataArr1[y].sort((a: any, b: any) => b.nilai_default - a.nilai_default)
+
+      for (let i = 0; i < dataArr1[y].length; i++) {
+        if (i == 0) {
+          dataArr1[y][i].nilai = 5
+          dataJuara.push(dataArr1[y][i]);
+        } else if (i == 1) {
+          dataArr1[y][i].nilai = 3
+          dataJuara.push(dataArr1[y][i]);
+        } else if (i == 2) {
+          dataArr1[y][i].nilai = 1
+          dataJuara.push(dataArr1[y][i]);
+        } else {
+          dataArr1[y][i].nilai = 0
+          dataJuara.push(dataArr1[y][i]);
+        }
+      }
 
     }
     res.status(200).json(dataJuara);
