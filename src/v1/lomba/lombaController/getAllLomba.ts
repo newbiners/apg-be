@@ -8,6 +8,7 @@ export const GetAllLomba = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
+    const { type } = req.body;
     var filter: any = {};
 
     if (id) {
@@ -19,6 +20,10 @@ export const GetAllLomba = async (
       if (currentUser.lomba) {
         filter._id = currentUser.lomba
       }
+    }
+
+    if (type) {
+      filter.type = type
     }
     const getLomba = await lomba.find(filter);
 
