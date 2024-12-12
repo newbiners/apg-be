@@ -74,7 +74,7 @@ export const postJuaraUmumPangkalan = async (
 
 
         var dataArr1 = Object.values(dataArr);
-        res.status(200).json(dataArr1);
+        // res.status(200).json(dataArr1);
 
         const dataJuara: any[] = [];
         for (let y = 0; y < dataArr1.length; y++) {
