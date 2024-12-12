@@ -14,7 +14,7 @@ export const editeNilaiLomba = async (
     const { id } = req.params;
     await nilaiLombaDetail.deleteMany({ header: id });
     res.status(200).json("success");
-    return
+    // return
     const { school, regu, lomba, nilai = 0 } = req.body;
     const dataLomba = await lombadb.findById(lomba._id);
     const newLombaDetail = await nilaiLomba.findByIdAndUpdate(
@@ -30,7 +30,7 @@ export const editeNilaiLomba = async (
     );
 
     var data_lomba_detail = await lombaDetail.find({ header: lomba._id });
-    res.status(200).json(data_lomba_detail);
+    // res.status(200).json(data_lomba_detail);
 
     for (let i = 0; i < data_lomba_detail.length; i++) {
       const newNilaiLombaDetail = new nilaiLombaDetail({
