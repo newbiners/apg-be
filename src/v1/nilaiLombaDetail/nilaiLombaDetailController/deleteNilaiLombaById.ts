@@ -19,6 +19,10 @@ export const DeleteNilaiLombaDeta = async (
       header: data && data.header,
     });
 
+    if (getNilaiLombaDetail.length == 0) {
+      res.status(200).json([]);
+    }
+
     var lomba_detail_id = getNilaiLombaDetail.map((item) => {
       return item.lomba_detail;
     });

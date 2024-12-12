@@ -19,6 +19,11 @@ export const DeleteNilaiLomba = async (
       regu: data && data.regu,
     });
 
+    if (getNilaiLomba.length == 0) {
+      res.status(200).json([]);
+    }
+
+
     var data_school = await schoolData(getNilaiLomba[0].school);
     var data_regu = await reguData(getNilaiLomba[0].regu);
     var lomba_id = getNilaiLomba.map((item: any) => item.lomba);
