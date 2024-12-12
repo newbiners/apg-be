@@ -25,17 +25,11 @@ export const editeNilaiLomba = async (
     );
 
     var data_lomba_detail = await lombaDetail.find({ header: lomba._id });
-    // res.status(200).json(data_lomba_detail);
-
-    const getNilaiLombaOne = await nilaiLomba.find({
-      school: school._id,
-      regu: regu._id,
-      lomba: lomba._id,
-    });
+    res.status(200).json(data_lomba_detail);
 
     for (let i = 0; i < data_lomba_detail.length; i++) {
       const newNilaiLombaDetail = new nilaiLombaDetail({
-        header: getNilaiLombaOne[0]._id,
+        header: id,
         lomba_detail: data_lomba_detail[i]._id,
         school,
         regu,
