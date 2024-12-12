@@ -22,7 +22,7 @@ export const postNilaiLomba = async (
     await newNilaiLomba.save();
 
 
-    var data_lomba_detail = await lombaDetail.find({ header: lomba });
+    var data_lomba_detail = await lombaDetail.find({ header: lomba._id });
     res.status(200).json(data_lomba_detail);
 
     const getNilaiLomba = await nilaiLomba.find({
