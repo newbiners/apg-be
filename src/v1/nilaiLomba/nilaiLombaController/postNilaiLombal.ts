@@ -3,6 +3,7 @@ import { nilaiLomba } from "../nilaiLombaModel/nilaiLombaModel";
 import { schools } from "../../schools/schoolsModel/schoolsModel";
 import { lomba as lombadb } from "../../lomba/lombaModel/lombaModel";
 import { reguData, lombaData } from "./getAllNilaiLomba";
+import { lombaDetail } from "../../lombaDetail/lombaDetailModel/lombaDetailModel";
 import { get } from "mongoose";
 export const postNilaiLomba = async (
   req: Request,
@@ -19,6 +20,10 @@ export const postNilaiLomba = async (
       type: (dataLomba && dataLomba?.type) || "",
     });
     await newNilaiLomba.save();
+
+
+    var data_lomba_detail = await lombaDetail.find({ header: lomba });
+    res.status(200).json(data_lomba_detail);
 
     const getNilaiLomba = await nilaiLomba.find({
       school: school._id,
