@@ -5,6 +5,7 @@ import { reguData } from "./getAllNilaiLomba";
 import { lombaData } from "./getAllNilaiLomba";
 import { nilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/nilaiLombaDetailModel";
 import { lombaDetail } from "../../lombaDetail/lombaDetailModel/lombaDetailModel";
+import { lomba as lombadb } from "../../lomba/lombaModel/lombaModel";
 export const editeNilaiLomba = async (
   req: Request,
   res: Response
@@ -12,7 +13,10 @@ export const editeNilaiLomba = async (
   try {
     const { id } = req.params;
     await nilaiLombaDetail.deleteMany({ header: id });
+    res.status(200).json("success");
+    return
     const { school, regu, lomba, nilai = 0 } = req.body;
+    const dataLomba = await lombadb.findById(lomba._id);
     const newLombaDetail = await nilaiLomba.findByIdAndUpdate(
       id,
       {
@@ -20,6 +24,7 @@ export const editeNilaiLomba = async (
         regu,
         lomba,
         nilai,
+        type: (dataLomba && dataLomba?.type) || "",
       },
       { new: true }
     );
