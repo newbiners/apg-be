@@ -24,21 +24,26 @@ export const postNilaiLomba = async (
       res.status(400).json({ message: "User not found" })
     }
 
-    const removeData = await nilaiJuri.deleteMany({
+    var filter: any = {
       school: school,
-      regu: regu,
       lomba: lomba,
       lomba_detail: lomba_detail,
       create: user && user._id || "",
       nilai_lomba_id: nilai_lomba_id,
       nilai_lomba_detail_id: nilai_lomba_detail_id
-    })
+    }
+
+    if (regu) {
+      filter.regu = regu
+    }
+
+    const removeData = await nilaiJuri.deleteMany(filter);
+
 
 
     const dataLomba = await lombadb.findById(lomba);
-    const newNilaiLomba = new nilaiJuri({
+    var filter2: any = {
       school,
-      regu,
       lomba,
       nilai,
       type: (dataLomba && dataLomba?.type) || "",
@@ -46,18 +51,15 @@ export const postNilaiLomba = async (
       create: user && user._id || "",
       nilai_lomba_id: nilai_lomba_id,
       nilai_lomba_detail_id: nilai_lomba_detail_id
-    });
+    }
+
+    if (regu) {
+      filter2.regu = regu
+    }
+    const newNilaiLomba = new nilaiJuri(filter2);
     await newNilaiLomba.save();
 
-    const getNilaiLomba = await nilaiJuri.find({
-      school: school,
-      regu: regu,
-      lomba: lomba,
-      lomba_detail: lomba_detail,
-      create: user && user._id || "",
-      nilai_lomba_id: nilai_lomba_id,
-      nilai_lomba_detail_id: nilai_lomba_detail_id
-    });
+    const getNilaiLomba = await nilaiJuri.find(filter);
 
     await createNilaiLombaDetail(req.body)
     await createNilaiLomba(req.body)

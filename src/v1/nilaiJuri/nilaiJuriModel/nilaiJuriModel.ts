@@ -28,7 +28,7 @@ const NilaiJuriSchema = new Schema<INilaiJuri>({
   regu: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Regu",
-    required: true,
+    required: false,
   },
   lomba: {
     type: mongoose.Schema.Types.ObjectId,

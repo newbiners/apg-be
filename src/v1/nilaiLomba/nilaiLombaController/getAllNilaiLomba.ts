@@ -8,12 +8,16 @@ export const getAllNilaiLomba = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { school, regu, lomba = null } = req.body;
+    const { school, regu = null, lomba = null } = req.body;
 
     var filter: any = {
       school: school._id,
-      regu: regu._id,
     }
+
+    if (regu != null) {
+      filter.regu = regu._id
+    }
+
     if (lomba != null) {
       filter.lomba = lomba._id
     }
