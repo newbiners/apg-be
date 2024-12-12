@@ -13,7 +13,7 @@ export const editeNilaiLomba = async (
   try {
     const { id } = req.params;
     await nilaiLombaDetail.deleteMany({ header: id });
-    res.status(200).json("success");
+    // res.status(200).json("success");
     // return
     const { school, regu, lomba, nilai = 0 } = req.body;
     const dataLomba = await lombadb.findById(lomba._id);
