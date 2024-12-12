@@ -3,12 +3,15 @@ import { nilaiLomba } from "../nilaiLombaModel/nilaiLombaModel";
 import { schoolData } from "./postNilaiLombal";
 import { reguData } from "./getAllNilaiLomba";
 import { lombaData } from "./getAllNilaiLomba";
+import { nilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/nilaiLombaDetailModel";
+import { lombaDetail } from "../../lombaDetail/lombaDetailModel/lombaDetailModel";
 export const editeNilaiLomba = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
     const { id } = req.params;
+    await nilaiLombaDetail.deleteMany({ header: id });
     const { school, regu, lomba, nilai = 0 } = req.body;
     const newLombaDetail = await nilaiLomba.findByIdAndUpdate(
       id,
@@ -20,6 +23,26 @@ export const editeNilaiLomba = async (
       },
       { new: true }
     );
+
+    var data_lomba_detail = await lombaDetail.find({ header: lomba._id });
+    // res.status(200).json(data_lomba_detail);
+
+    const getNilaiLombaOne = await nilaiLomba.find({
+      school: school._id,
+      regu: regu._id,
+      lomba: lomba._id,
+    });
+
+    for (let i = 0; i < data_lomba_detail.length; i++) {
+      const newNilaiLombaDetail = new nilaiLombaDetail({
+        header: getNilaiLombaOne[0]._id,
+        lomba_detail: data_lomba_detail[i]._id,
+        school,
+        regu,
+        nilai,
+      })
+      await newNilaiLombaDetail.save();
+    }
 
     const getNilaiLomba = await nilaiLomba.find({
       school: school._id,

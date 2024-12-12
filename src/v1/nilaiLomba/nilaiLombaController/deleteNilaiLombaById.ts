@@ -4,12 +4,14 @@ import { Request, Response } from "express";
 import { schoolData } from "./postNilaiLombal";
 import { reguData } from "./getAllNilaiLomba";
 import { lombaData } from "./getAllNilaiLomba";
+import { nilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/nilaiLombaDetailModel";
 export const DeleteNilaiLomba = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
     const id = req.params.id;
+    await nilaiLombaDetail.deleteMany({ header: id });
     const data = await nilaiLomba.findByIdAndDelete({ _id: id });
 
     const getNilaiLomba = await nilaiLomba.find({
