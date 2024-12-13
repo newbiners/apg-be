@@ -5,8 +5,10 @@ import { GetAllLomba } from "../lombaController/getAllLomba";
 import { PostLomba } from "../lombaController/postLomba";
 import { authenticateToken } from "../../../global/authenticateToken";
 import { authorizeRoles } from "../../../global/authorizeRoles";
+import { Lomba } from "../lombaController/lomba";
 const router = express.Router();
 
+router.post("/user", Lomba);
 router.get("/", GetAllLomba);
 router.post("/:id", GetAllLomba);
 router.use(authenticateToken, authorizeRoles(['ADMIN']))
