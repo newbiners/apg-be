@@ -33,6 +33,8 @@ export const Lomba = async (
             })
         }
 
+        result.sort((a, b) => b.total_nilai - a.total_nilai);
+
         res.status(200).json(result);
     } catch (err) {
         console.log(err);
