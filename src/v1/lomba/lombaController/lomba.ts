@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { lomba } from "../lombaModel/lombaModel";
 import { regu } from "../../regu/reguModel/reguModel";
-import { User } from "../../users/usersModel/userModel";
-import jwt from 'jsonwebtoken'
+import { nilaiJuri } from "../../nilaiJuri/nilaiJuriModel/nilaiJuriModel";
+import { schools } from "../../schools/schoolsModel/schoolsModel";
 export const Lomba = async (
     req: Request,
     res: Response
@@ -16,10 +16,24 @@ export const Lomba = async (
 
         const regu_data = await regu.find({ gender: gender });
 
-        res.status(200).json({
-            lomba: getLomba,
-            regu: regu_data
-        });
+        var result: any[] = [];
+        for (let i = 0; i < regu_data.length; i++) {
+            const regu_id = regu_data[i]._id;
+            const nilai_juri = await nilaiJuri.find({ regu: regu_id, type: getLomba?.type, lomba: getLomba?._id });
+
+            const pangkalan = await schools.findById(regu_data[i].school);
+            var total_nilai = 0;
+            for (let j = 0; j < nilai_juri.length; j++) {
+                total_nilai += nilai_juri[j].nilai;
+            }
+            result.push({
+                regu: regu_data[i],
+                pangkalan: pangkalan,
+                total_nilai: total_nilai
+            })
+        }
+
+        res.status(200).json(result);
     } catch (err) {
         console.log(err);
     }
