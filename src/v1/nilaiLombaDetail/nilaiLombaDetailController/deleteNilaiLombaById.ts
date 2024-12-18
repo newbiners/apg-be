@@ -7,6 +7,9 @@ import { ISchool } from "../../schools/schoolsModel/schoolsModel";
 import { IRegu } from "../../regu/reguModel/reguModel";
 import { schoolData } from "./postNilaiLombal";
 import { reguData } from "./getAllNilaiLombaDetail";
+import { nilaiLomba } from "../../nilaiLomba/nilaiLombaModel/nilaiLombaModel";
+import { schools } from "../../schools/schoolsModel/schoolsModel";
+import { regu } from "../../regu/reguModel/reguModel";
 export const DeleteNilaiLombaDeta = async (
   req: Request,
   res: Response
@@ -19,13 +22,39 @@ export const DeleteNilaiLombaDeta = async (
       header: data && data.header,
     });
 
+    var nilai = 0;
+    for (let i = 0; i < getNilaiLombaDetail.length; i++) {
+      nilai += getNilaiLombaDetail[i].nilai;
+    }
+    const nilai_lomba = await nilaiLomba.findByIdAndUpdate(
+      data && data.header,
+      { nilai: nilai },
+      { new: true }
+    );
+
+    const pangkalan_nilai_lomba = await nilaiLomba.find({ school: nilai_lomba?.school, type: "pangkalan" });
+    const regu_nilai_lomba = await nilaiLomba.find({ regu: nilai_lomba?.regu, type: "regu" });
+
+    let nilaiPangkalan = 0;
+    for (let pnl of pangkalan_nilai_lomba) {
+      nilaiPangkalan += pnl.nilai;
+    }
+
+    let nilaiRegu = 0;
+    for (let pnl of regu_nilai_lomba) {
+      nilaiRegu += pnl.nilai;
+    }
+
+    await schools.findByIdAndUpdate(nilai_lomba?.school, { nilai: nilaiPangkalan }, { new: true });
+    await regu.findByIdAndUpdate(nilai_lomba?.regu, { nilai: nilaiRegu }, { new: true })
+
     if (getNilaiLombaDetail.length == 0) {
       res.status(200).json([]);
     }
 
     var lomba_detail_id = getNilaiLombaDetail.map((item) => {
       return item.lomba_detail;
-    });
+    }); 10
 
     var lomba_detail_res = await lombaDataRes(lomba_detail_id);
     const school_data = await schoolData(getNilaiLombaDetail[0].school);

@@ -6,6 +6,8 @@ import { lombaData } from "./getAllNilaiLomba";
 import { nilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/nilaiLombaDetailModel";
 import { lombaDetail } from "../../lombaDetail/lombaDetailModel/lombaDetailModel";
 import { lomba as lombadb } from "../../lomba/lombaModel/lombaModel";
+import { schools } from "../../schools/schoolsModel/schoolsModel";
+import { regu as reguDb } from "../../regu/reguModel/reguModel";
 export const editeNilaiLomba = async (
   req: Request,
   res: Response
@@ -28,6 +30,23 @@ export const editeNilaiLomba = async (
       },
       { new: true }
     );
+
+    const pangkalan_nilai_lomba = await nilaiLomba.find({ school: newLombaDetail?.school, type: "pangkalan" });
+    const regu_nilai_lomba = await nilaiLomba.find({ regu: newLombaDetail?.regu, type: "regu" });
+
+    let nilaiPangkalan = 0;
+    for (let pnl of pangkalan_nilai_lomba) {
+      nilaiPangkalan += pnl.nilai;
+    }
+
+    let nilaiRegu = 0;
+    for (let pnl of regu_nilai_lomba) {
+      nilaiRegu += pnl.nilai;
+    }
+
+    await schools.findByIdAndUpdate(newLombaDetail?.school, { nilai: nilaiPangkalan }, { new: true });
+    await reguDb.findByIdAndUpdate(newLombaDetail?.regu, { nilai: nilaiRegu }, { new: true })
+
 
     var data_lomba_detail = await lombaDetail.find({ header: lomba._id });
     // res.status(200).json(data_lomba_detail);

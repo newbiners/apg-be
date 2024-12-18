@@ -5,6 +5,8 @@ import { schoolData } from "./postNilaiLombal";
 import { reguData } from "./getAllNilaiLomba";
 import { lombaData } from "./getAllNilaiLomba";
 import { nilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/nilaiLombaDetailModel";
+import { schools } from "../../schools/schoolsModel/schoolsModel";
+import { regu } from "../../regu/reguModel/reguModel";
 export const DeleteNilaiLomba = async (
   req: Request,
   res: Response
@@ -18,6 +20,26 @@ export const DeleteNilaiLomba = async (
       school: data && data.school,
       regu: data && data.regu,
     });
+
+
+    const pangkalan_nilai_lomba = await nilaiLomba.find({ school: data?.school, type: "pangkalan" });
+    const regu_nilai_lomba = await nilaiLomba.find({ regu: data?.regu, type: "regu" });
+
+    let nilaiPangkalan = 0;
+    for (let pnl of pangkalan_nilai_lomba) {
+      nilaiPangkalan += pnl.nilai;
+    }
+
+    let nilaiRegu = 0;
+    for (let pnl of regu_nilai_lomba) {
+      nilaiRegu += pnl.nilai;
+    }
+
+    await schools.findByIdAndUpdate(data?.school, { nilai: nilaiPangkalan }, { new: true });
+    await regu.findByIdAndUpdate(data?.regu, { nilai: nilaiRegu }, { new: true })
+
+
+
 
     if (getNilaiLomba.length == 0) {
       res.status(200).json([]);
