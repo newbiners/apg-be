@@ -17,12 +17,12 @@ export const DeleteNilaiJuri = async (
 
         await createNilaiLombaDetail(rm)
         await createNilaiLomba(rm)
-        res.status(200).json(rm);
         await createNilaiRegu(rm)
         await createNilaiSchool(rm)
         const getData = await nilaiJuri.find({
             nilai_lomba_detail_id: rm?.nilai_lomba_detail_id
         })
+        // res.status(200).json(rm);
         // res.status(200).json(getData);
 
 
