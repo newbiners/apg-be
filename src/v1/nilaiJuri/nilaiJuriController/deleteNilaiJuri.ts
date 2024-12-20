@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { nilaiJuri } from "../nilaiJuriModel/nilaiJuriModel";
 import { IUser, User } from "../../users/usersModel/userModel";
 import { lombaDetail, ILombaDetail } from "../../lombaDetail/lombaDetailModel/lombaDetailModel";
+import { createNilaiLomba, createNilaiLombaDetail, createNilaiRegu, createNilaiSchool } from "./postNilaiJuri";
 import jwt from 'jsonwebtoken';
 import { get } from "http";
 export const DeleteNilaiJuri = async (
@@ -16,6 +17,11 @@ export const DeleteNilaiJuri = async (
 
 
         const rm = await nilaiJuri.findByIdAndDelete(id)
+
+        await createNilaiSchool(rm);
+        await createNilaiRegu(rm);
+        await createNilaiLomba(rm);
+        await createNilaiLombaDetail(rm);
 
         const getData = await nilaiJuri.find({
             nilai_lomba_detail_id: rm?.nilai_lomba_detail_id
