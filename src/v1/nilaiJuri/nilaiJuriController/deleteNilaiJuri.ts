@@ -13,6 +13,9 @@ export const DeleteNilaiJuri = async (
         const id = req.params.id;
         const rm = await nilaiJuri.findByIdAndDelete(id)
 
+
+        res.status(200).json(rm);
+
         await createNilaiSchool(rm);
         await createNilaiRegu(rm);
         await createNilaiLomba(rm);
