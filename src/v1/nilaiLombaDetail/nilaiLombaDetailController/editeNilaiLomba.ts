@@ -32,7 +32,7 @@ export const editNilaiLomba = async (req: Request, res: Response): Promise<void>
       newNilai += nilaiLombaDetails[i].nilai
     }
     // res.status(200).json(header);
-    if (newNilai) {
+    // if (newNilai) {
 
      const nilai_lomba = await nilaiLomba.findByIdAndUpdate(header._id, { nilai: newNilai }, { new: true });
      const pangkalan_nilai_lomba = await nilaiLomba.find({school: nilai_lomba?.school, type: "pangkalan"});
@@ -51,7 +51,7 @@ export const editNilaiLomba = async (req: Request, res: Response): Promise<void>
      await schools.findByIdAndUpdate(nilai_lomba?.school, { nilai: nilaiPangkalan }, { new: true });
      await regu.findByIdAndUpdate(nilai_lomba?.regu, {nilai : nilaiRegu}, {new : true})
      
-    }
+    // }
 
     // Map and retrieve detailed information based on lomba_detail IDs
     const lombaDetailIds = nilaiLombaDetails.map((item) => item.lomba_detail);
