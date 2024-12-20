@@ -11,5 +11,5 @@ const router = express.Router();
 router.post("/", postNilaiLomba);
 router.post("/get", getNilaiJuri);
 router.post("/get-by-admin", getNilaiJuriByAdmin);
-router.delete("/delete", DeleteNilaiJuri)
+router.delete("/delete/:id", DeleteNilaiJuri)
 export const nilaiJuriRouter = router;

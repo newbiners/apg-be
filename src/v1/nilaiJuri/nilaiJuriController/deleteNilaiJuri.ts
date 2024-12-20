@@ -10,12 +10,7 @@ export const DeleteNilaiJuri = async (
     res: Response
 ): Promise<void> => {
     try {
-        const { id } = req.body;
-
-
-
-
-
+        const id = req.params.id;
         const rm = await nilaiJuri.findByIdAndDelete(id)
 
         await createNilaiSchool(rm);
