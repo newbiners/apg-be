@@ -6,8 +6,14 @@ export const getReguBySchool = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { school } = req.body;
-    const getRegu = await regu.find({ school: school._id });
+    const { school, gender } = req.body;
+    var filter: { school: string, gender?: string } = {
+      school: school._id
+    }
+    if (gender) {
+      filter.gender = gender
+    }
+    const getRegu = await regu.find(filter);
 
     const school_id = getRegu.map((data) => data.school);
     const getSchool = await schoolData(school_id);
