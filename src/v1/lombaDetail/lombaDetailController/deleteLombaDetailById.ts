@@ -1,6 +1,7 @@
 import { get } from "http";
 import { lombaDetail } from "../lombaDetailModel/lombaDetailModel";
 import { Request, Response } from "express";
+import { nilaiJuri } from "../../nilaiJuri/nilaiJuriModel/nilaiJuriModel";
 export const DeleteLombaDetail = async (
   req: Request,
   res: Response
@@ -8,6 +9,8 @@ export const DeleteLombaDetail = async (
   try {
     const id = req.params.id;
     const data = await lombaDetail.findByIdAndDelete({ _id: id });
+
+    await nilaiJuri.deleteMany({ lomba_detail: data && data._id })
 
     const getLombaDetail = await lombaDetail.find({
       header: data && data.header,

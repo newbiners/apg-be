@@ -1,6 +1,7 @@
 import { regu } from "../reguModel/reguModel";
 import { Request, Response } from "express";
 import { schoolData } from "./postRegu";
+import { nilaiJuri } from "../../nilaiJuri/nilaiJuriModel/nilaiJuriModel";
 export const DeleteRoles = async (
   req: Request,
   res: Response
@@ -8,6 +9,8 @@ export const DeleteRoles = async (
   try {
     const id = req.params.id;
     await regu.findByIdAndDelete({ _id: id });
+
+    await nilaiJuri.deleteMany({ regu: id, type: 'regu' })
 
     const getRegu = await regu.find();
 

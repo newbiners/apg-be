@@ -7,6 +7,7 @@ import { lombaData } from "./getAllNilaiLomba";
 import { nilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/nilaiLombaDetailModel";
 import { schools } from "../../schools/schoolsModel/schoolsModel";
 import { regu } from "../../regu/reguModel/reguModel";
+import { nilaiJuri } from "../../nilaiJuri/nilaiJuriModel/nilaiJuriModel";
 export const DeleteNilaiLomba = async (
   req: Request,
   res: Response
@@ -15,6 +16,8 @@ export const DeleteNilaiLomba = async (
     const id = req.params.id;
     await nilaiLombaDetail.deleteMany({ header: id });
     const data = await nilaiLomba.findByIdAndDelete({ _id: id });
+
+    await nilaiJuri.deleteMany({ nilai_lomba_id: data && data._id })
 
     const getNilaiLomba = await nilaiLomba.find({
       school: data && data.school,
