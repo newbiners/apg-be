@@ -27,7 +27,7 @@ export const DeleteNilaiJuri = async (
 
 
         if (getData.length == 0) {
-            res.status(400).json([])
+            res.status(200).json([])
         }
 
         var data_arr: any[] = [];

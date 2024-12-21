@@ -54,7 +54,7 @@ export const DeleteNilaiLombaDeta = async (
 
     var lomba_detail_id = getNilaiLombaDetail.map((item) => {
       return item.lomba_detail;
-    }); 10
+    }); 
 
     var lomba_detail_res = await lombaDataRes(lomba_detail_id);
     const school_data = await schoolData(getNilaiLombaDetail[0].school);
