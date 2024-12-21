@@ -44,6 +44,7 @@ export const postJuaraUmumPangkalan = async (
                 const nilaiLombaData: any[] = await nilaiLomba.find({
                     school: schoolId,
                     lomba: lombaId,
+                    type: type,
                     // school: reguItem.school,
                 });
 

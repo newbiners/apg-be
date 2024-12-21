@@ -2,6 +2,8 @@ import { regu } from "../reguModel/reguModel";
 import { Request, Response } from "express";
 import { schoolData } from "./postRegu";
 import { nilaiJuri } from "../../nilaiJuri/nilaiJuriModel/nilaiJuriModel";
+import { nilaiLomba } from "../../nilaiLomba/nilaiLombaModel/nilaiLombaModel";
+import { nilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/nilaiLombaDetailModel";
 import { schools } from "../../schools/schoolsModel/schoolsModel";
 export const DeleteRoles = async (
   req: Request,
@@ -13,6 +15,8 @@ export const DeleteRoles = async (
 
 
     await nilaiJuri.deleteMany({ regu: id })
+    await nilaiLomba.deleteMany({ regu: id })
+    await nilaiLombaDetail.deleteMany({ regu: id })
 
 
     const getRegu = await nilaiJuri.find({ school: regus?.school, type: "pangkalan" });

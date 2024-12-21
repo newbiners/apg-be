@@ -8,6 +8,7 @@ import { nilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/n
 import { schools } from "../../schools/schoolsModel/schoolsModel";
 import { regu } from "../../regu/reguModel/reguModel";
 import { nilaiJuri } from "../../nilaiJuri/nilaiJuriModel/nilaiJuriModel";
+
 export const DeleteNilaiLomba = async (
   req: Request,
   res: Response
