@@ -10,7 +10,7 @@ export const DeleteSchool = async (
     const id = req.params.id;
     const deleteRoles = await schools.findByIdAndDelete({ _id: id });
 
-    await nilaiJuri.deleteMany({ school: id, type: 'pangkalan' })
+    await nilaiJuri.deleteMany({ school: id })
     await regu.deleteMany({ school: id })
     const getSchools = await schools.find();
     const sortegetSchools = getSchools.sort((a: any, b: any) => b.nilai - a.nilai);

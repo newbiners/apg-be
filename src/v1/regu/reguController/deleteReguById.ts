@@ -2,17 +2,27 @@ import { regu } from "../reguModel/reguModel";
 import { Request, Response } from "express";
 import { schoolData } from "./postRegu";
 import { nilaiJuri } from "../../nilaiJuri/nilaiJuriModel/nilaiJuriModel";
+import { schools } from "../../schools/schoolsModel/schoolsModel";
 export const DeleteRoles = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
     const id = req.params.id;
-    await regu.findByIdAndDelete({ _id: id });
+    const regus = await regu.findByIdAndDelete({ _id: id });
 
-    await nilaiJuri.deleteMany({ regu: id, type: 'regu' })
 
-    const getRegu = await regu.find();
+    await nilaiJuri.deleteMany({ regu: id })
+
+
+    const getRegu = await nilaiJuri.find({ school: regus?.school, type: "pangkalan" });
+
+    var nilai = 0;
+    for (let i = 0; i < getRegu.length; i++) {
+      nilai += getRegu[i].nilai
+    }
+
+    await schools.findByIdAndUpdate(regus?.school, { nilai: nilai }, { new: true });
 
     const school_id = getRegu.map((data) => data.school);
     const getSchool = await schoolData(school_id);

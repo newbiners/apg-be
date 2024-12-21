@@ -16,7 +16,7 @@ export const EditRegu = async (req: Request, res: Response): Promise<void> => {
       { new: true }
     );
 
-    const getRegu = await regu.find();
+    const getRegu = await regu.find({ school: newRegu?.school });
 
     const school_id = getRegu.map((data) => data.school);
     const getSchool = await schoolData(school_id);
