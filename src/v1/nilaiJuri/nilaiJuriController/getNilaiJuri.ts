@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { nilaiJuri } from "../nilaiJuriModel/nilaiJuriModel";
 import { User } from "../../users/usersModel/userModel";
 import jwt from 'jsonwebtoken';
+import { nilaiLombaDetail } from "../../nilaiLombaDetail/nilaiLombaDetailModel/nilaiLombaDetailModel";
 export const getNilaiJuri = async (
     req: Request,
     res: Response
@@ -56,3 +57,15 @@ export const getNilaiJuriSemu = async (
     res.status(200).json(data_arr);
 }
 
+export const getNilaiLombaDetail = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+    try {
+        var data = await nilaiLombaDetail.find({ _id: "6766c726b69efe879cf5ca8f" })
+        res.status(200).json(data);
+    } catch (err) {
+        console.log(err);
+        res.status(400).json(err);
+    }
+}
