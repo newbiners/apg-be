@@ -90,8 +90,9 @@ export const createNilaiLombaDetail = async (data: any) => {
 
 
 export const createNilaiLomba = async (data: any) => {
-  const nilaiDataJuri = await nilaiJuri.find({
-    nilai_lomba_id: data.nilai_lomba_id
+  const nilaiDataJuri = await nilaiLombaDetail.find({
+    // nilai_lomba_id: data.nilai_lomba_id
+    regu: data.regu,
   })
 
   var nilai = 0;
