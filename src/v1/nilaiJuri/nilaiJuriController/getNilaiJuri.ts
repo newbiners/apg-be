@@ -43,7 +43,7 @@ export const getNilaiJuriSemu = async (
     req: Request,
     res: Response
 ): Promise<void> => {
-    const getData = await nilaiJuri.find()
+    const getData = await nilaiJuri.find({ nilai_lomba_id: "6766c725b69efe879cf5ca8b" })
     // res.status(200).json(getData);
 
 
