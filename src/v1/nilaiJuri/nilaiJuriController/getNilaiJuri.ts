@@ -44,7 +44,7 @@ export const getNilaiJuriSemu = async (
     res: Response
 ): Promise<void> => {
     const getData = await nilaiJuri.find({ nilai_lomba_id: "6766c725b69efe879cf5ca8b" })
-    // res.status(200).json(getData);
+    res.status(200).json(getData);
 
 
     var data_arr: Record<string, number> = {};
