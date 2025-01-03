@@ -39,5 +39,20 @@ export const getNilaiJuri = async (
     }
 };
 
+export const getNilaiJuriSemu = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+    const getData = await nilaiJuri.find()
+    // res.status(200).json(getData);
 
+
+    var data_arr: Record<string, number> = {};
+    for (let i = 0; i < getData.length; i++) {
+        data_arr[getData[i].nilai_lomba_detail_id.toString()] = getData[i].nilai || 0
+    }
+
+
+    res.status(200).json(data_arr);
+}
 

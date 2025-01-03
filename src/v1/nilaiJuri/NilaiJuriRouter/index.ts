@@ -1,6 +1,6 @@
 import express from "express";
 import { postNilaiLomba, getNilaiLombaTest } from "../nilaiJuriController/postNilaiJuri";
-import { getNilaiJuri } from "../nilaiJuriController/getNilaiJuri";
+import { getNilaiJuri, getNilaiJuriSemu } from "../nilaiJuriController/getNilaiJuri";
 import { getNilaiJuriByAdmin } from "../nilaiJuriController/getNilaiJuriByAdmin";
 import { DeleteNilaiJuri } from "../nilaiJuriController/deleteNilaiJuri";
 
@@ -11,6 +11,7 @@ const router = express.Router();
 // router.use(authenticateToken, authorizeRoles(['JURI']))
 router.post("/", postNilaiLomba);
 router.post("/get", getNilaiJuri);
+router.get("/get-semu", getNilaiJuriSemu);
 router.get("/test/:id", getNilaiLombaTest);
 router.post("/get-by-admin", getNilaiJuriByAdmin);
 router.delete("/delete/:id", DeleteNilaiJuri)
