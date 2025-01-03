@@ -103,7 +103,7 @@ export const createNilaiLomba = async (data: any) => {
 
 
 export const createNilaiRegu = async (data: any) => {
-  const nilaiDataJuri = await nilaiJuri.find({
+  const nilaiDataJuri = await nilaiLomba.find({
     regu: data.regu,
     type: "regu"
   })
@@ -118,7 +118,7 @@ export const createNilaiRegu = async (data: any) => {
 
 
 export const createNilaiSchool = async (data: any) => {
-  const nilaiDataJuri = await nilaiJuri.find({
+  const nilaiDataJuri = await nilaiLomba.find({
     school: data.school,
     type: "pangkalan"
   })
