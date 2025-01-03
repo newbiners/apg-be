@@ -92,6 +92,7 @@ export const createNilaiLombaDetail = async (data: any) => {
 export const createNilaiLomba = async (data: any) => {
   const nilaiDataJuri = await nilaiLombaDetail.find({
     // nilai_lomba_id: data.nilai_lomba_id
+    header: data.nilai_lomba_id,
     regu: data.regu,
   })
 
@@ -129,6 +130,26 @@ export const createNilaiSchool = async (data: any) => {
     nilai += nilaiDataJuri[i].nilai
   }
   const nilai_lomba = await schools.findByIdAndUpdate(data.school, { nilai: nilai }, { new: true });
+}
+
+
+export const getNilaiLombaTest = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const id = req.params.id;
+    const nilaiDataJuri = await nilaiLombaDetail.find({
+      // nilai_lomba_id: data.nilai_lomba_id
+      header: id,
+      // regu: data.regu,
+    })
+
+    res.status(200).json(nilaiDataJuri);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
 }
 
 
