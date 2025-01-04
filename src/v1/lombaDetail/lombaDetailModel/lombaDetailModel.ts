@@ -4,6 +4,7 @@ import { ILomba } from "../../lomba/lombaModel/lombaModel";
 export interface ILombaDetail extends Document {
   name: string;
   header: mongoose.Schema.Types.ObjectId | ILomba;
+  nilai_max: number;
 }
 
 const LombaDetailSchema = new Schema<ILombaDetail>({
@@ -13,6 +14,7 @@ const LombaDetailSchema = new Schema<ILombaDetail>({
     ref: "Lomba",
     required: true,
   },
+  nilai_max: { type: Number, required: true },
 });
 
 export const lombaDetail = mongoose.model<ILombaDetail>(

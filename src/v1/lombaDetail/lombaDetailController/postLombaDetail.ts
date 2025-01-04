@@ -5,10 +5,11 @@ export const postLombaDetail = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { header, name,} = req.body;
+    const { header, name, nilai_max } = req.body;
     const newLombaDetail = new lombaDetail({
       header,
       name,
+      nilai_max
     });
     await newLombaDetail.save();
 

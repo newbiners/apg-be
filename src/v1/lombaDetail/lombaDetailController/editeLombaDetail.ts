@@ -6,12 +6,13 @@ export const editeLombaDetail = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const { header, name} = req.body;
+    const { header, name, nilai_max } = req.body;
     const newLombaDetail = await lombaDetail.findByIdAndUpdate(
       id,
       {
         name,
         header,
+        nilai_max
       },
       { new: true }
     );
