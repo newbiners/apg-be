@@ -11,6 +11,12 @@ export const DeleteUser = async (req: Request, res: Response): Promise<void> => 
         const id = req.params.id
         const deleteUser = await User.findByIdAndDelete({ _id: id });
 
+
+
+        if (deleteUser == null) {
+            res.status(400).json({ message: "User not found" })
+        }
+
         // menghitung kembali nilai limba
         await nilaiJuri.deleteMany({ create: id });
 
@@ -27,6 +33,7 @@ export const DeleteUser = async (req: Request, res: Response): Promise<void> => 
             await nilaiLombaDetail.findByIdAndUpdate(nilaiLombaDetailData[i]._id, { nilai: total }, { new: true });
         }
 
+        res.status(400).json({ message: "test 1" })
         const nilaiLombaData = await nilaiLomba.find();
 
         for (let i = 0; i < nilaiLombaData.length; i++) {
@@ -38,7 +45,7 @@ export const DeleteUser = async (req: Request, res: Response): Promise<void> => 
             }
             await nilaiLomba.findByIdAndUpdate(nilaiLombaId, { nilai: total }, { new: true });
         }
-
+        res.status(400).json({ message: "test 2" })
         const Regu = await regu.find();
         // let totalRegu = 0;
         for (let i = 0; i < Regu.length; i++) {
@@ -51,6 +58,7 @@ export const DeleteUser = async (req: Request, res: Response): Promise<void> => 
             await regu.findByIdAndUpdate(reguId, { nilai: totalRegu }, { new: true });
         }
 
+        res.status(400).json({ message: "test 3" })
         const Sekolah = await schools.find();
         for (let i = 0; i < Sekolah.length; i++) {
             const schoolId = Sekolah[i]._id;
@@ -60,12 +68,6 @@ export const DeleteUser = async (req: Request, res: Response): Promise<void> => 
                 totalSchool += nilaiLombaData[j].nilai;
             }
             await schools.findByIdAndUpdate(schoolId, { nilai: totalSchool }, { new: true });
-        }
-
-
-
-        if (deleteUser == null) {
-            res.status(400).json({ message: "User not found" })
         }
 
         const getRoles = await getRole();
