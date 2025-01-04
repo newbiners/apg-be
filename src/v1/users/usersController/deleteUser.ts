@@ -66,9 +66,10 @@ export const DeleteUser = async (req: Request, res: Response): Promise<void> => 
         }
 
         const Sekolah = await schools.find({ _id: { $in: schoolId } });
+        // res.status(400).json(Sekolah)
         for (let i = 0; i < Sekolah.length; i++) {
             const schoolId = Sekolah[i]._id;
-            const nilaiLombaData = await nilaiLomba.find({ regu: schoolId, type: "pangkalan" });
+            const nilaiLombaData = await nilaiLomba.find({ school: schoolId, type: "pangkalan" });
             let totalSchool = 0;
             for (let j = 0; j < nilaiLombaData.length; j++) {
                 totalSchool += nilaiLombaData[j].nilai;
@@ -76,7 +77,6 @@ export const DeleteUser = async (req: Request, res: Response): Promise<void> => 
             await schools.findByIdAndUpdate(schoolId, { nilai: totalSchool }, { new: true });
         }
 
-        res.status(400).json({ message: "test 3" })
         const getRoles = await getRole();
 
         const getUser = await User.find();
