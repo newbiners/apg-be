@@ -119,7 +119,7 @@ export const postJuaraUmumPangkalan = async (
             }
 
         }
-        res.status(200).send(hitung);
+        // res.status(200).send(hitung);
 
         // Simpan data detail ke database
         await juaraUmum.insertMany(dataJuara);
