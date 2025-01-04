@@ -3,6 +3,9 @@ const router = express.Router();
 import { PostRoles } from '../rolesController/postRoles';
 import { GetAllRoles } from '../rolesController/getAllRoles';
 import { DeleteRoles } from '../rolesController/deleteRoles';
+import { authenticateToken } from '../../../global/authenticateToken';
+import { authorizeRoles } from '../../../global/authorizeRoles';
+router.use(authenticateToken, authorizeRoles(['ADMIN']));
 router.post('/', PostRoles);
 router.get('/', GetAllRoles);
 router.get('/:id', (req, res) => {
