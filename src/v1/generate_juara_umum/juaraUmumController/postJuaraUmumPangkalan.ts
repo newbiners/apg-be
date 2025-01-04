@@ -56,9 +56,9 @@ export const postJuaraUmumPangkalan = async (
 
                 const lombaName = lombaItem.name.toString();
 
-                // if (!dataArr[lombaName]) {
-                //     dataArr[lombaName] = [];
-                // }
+                if (!dataArr[lombaName]) {
+                    dataArr[lombaName] = [];
+                }
 
                 nilaiLombaData.forEach((item) => {
                     dataArr[lombaName].push({
@@ -75,7 +75,7 @@ export const postJuaraUmumPangkalan = async (
 
 
         var dataArr1 = Object.values(dataArr);
-        // res.status(200).json(dataArr1);
+        res.status(200).json(dataArr1);
 
         const dataJuara: any[] = [];
         for (let y = 0; y < dataArr1.length; y++) {
