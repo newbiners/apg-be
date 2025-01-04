@@ -13,7 +13,7 @@ export const Reset = async (
         const id = req.body?.id as any;
 
         if (id != "112211") {
-            res.status(400).json({ message: "Unauthorized" })
+            res.status(400).json({ message: id })
             return
         }
         await nilaiJuri.deleteMany({});
