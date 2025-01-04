@@ -3,6 +3,7 @@ import { lomba } from "../lombaModel/lombaModel";
 import { regu } from "../../regu/reguModel/reguModel";
 import { nilaiJuri } from "../../nilaiJuri/nilaiJuriModel/nilaiJuriModel";
 import { schools } from "../../schools/schoolsModel/schoolsModel";
+import { nilaiLomba } from "../../nilaiLomba/nilaiLombaModel/nilaiLombaModel";
 export const Lomba = async (
     req: Request,
     res: Response
@@ -19,13 +20,14 @@ export const Lomba = async (
         var result: any[] = [];
         for (let i = 0; i < regu_data.length; i++) {
             const regu_id = regu_data[i]._id;
-            const nilai_juri = await nilaiJuri.find({ regu: regu_id, type: getLomba?.type, lomba: getLomba?._id });
+            // const nilai_juri = await nilaiJuri.find({ regu: regu_id, type: getLomba?.type, lomba: getLomba?._id });
+            const nilai_Lomba = await nilaiLomba.findOne({ regu: regu_id, lomba: getLomba?._id });
 
             const pangkalan = await schools.findById(regu_data[i].school);
-            var total_nilai = 0;
-            for (let j = 0; j < nilai_juri.length; j++) {
-                total_nilai += nilai_juri[j].nilai;
-            }
+            var total_nilai = nilai_Lomba && nilai_Lomba.nilai || 0;
+            // for (let j = 0; j < nilai_juri.length; j++) {
+            //     total_nilai += nilai_juri[j].nilai;
+            // }
             result.push({
                 regu: regu_data[i],
                 pangkalan: pangkalan,
