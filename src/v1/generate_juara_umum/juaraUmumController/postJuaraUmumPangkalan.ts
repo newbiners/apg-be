@@ -56,19 +56,32 @@ export const postJuaraUmumPangkalan = async (
 
                 const lombaName = lombaItem.name.toString();
 
-                if (!dataArr[lombaName]) {
-                    dataArr[lombaName] = [];
-                }
+                // if (!dataArr[lombaName]) {
+                //     dataArr[lombaName] = [];
+                // }
+
+                // nilaiLombaData.forEach((item) => {
+                //     dataArr[lombaName].push({
+                //         pangkalan: schoolItem || null,
+                //         lomba: lombaItem,
+                //         lomba_id: lombaItem._id,
+                //         nilai_default: item.nilai,
+                //         // nilai_juara: item.nilai_juara,
+                //         type,
+                //     });
+                // });
 
                 nilaiLombaData.forEach((item) => {
-                    dataArr[lombaName].push({
-                        pangkalan: schoolItem || null,
-                        lomba: lombaItem,
-                        lomba_id: lombaItem._id,
-                        nilai_default: item.nilai,
-                        // nilai_juara: item.nilai_juara,
-                        type,
-                    });
+                    const exists = dataArr[lombaName].some((entry) => entry.lomba_id === lombaItem._id && entry.pangkalan._id === schoolItem._id);
+                    if (!exists) {
+                        dataArr[lombaName].push({
+                            pangkalan: schoolItem || null,
+                            lomba: lombaItem,
+                            lomba_id: lombaItem._id,
+                            nilai_default: item.nilai,
+                            type,
+                        });
+                    }
                 });
             }
         }
