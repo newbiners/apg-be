@@ -3,12 +3,13 @@ import { postNilaiLomba, getNilaiLombaTest } from "../nilaiJuriController/postNi
 import { getNilaiJuri, getNilaiJuriSemu, getNilaiLombaDetail } from "../nilaiJuriController/getNilaiJuri";
 import { getNilaiJuriByAdmin } from "../nilaiJuriController/getNilaiJuriByAdmin";
 import { DeleteNilaiJuri } from "../nilaiJuriController/deleteNilaiJuri";
-
+import { Reset } from "../nilaiJuriController/reset";
 import { authenticateToken } from "../../../global/authenticateToken";
 import { authorizeRoles } from "../../../global/authorizeRoles";
 const router = express.Router();
-
-// router.use(authenticateToken, authorizeRoles(['JURI']))
+router.use(authenticateToken, authorizeRoles(['ADMIN']));
+router.post("/reset", Reset);
+router.use(authenticateToken, authorizeRoles(['JURI', 'ADMIN']))
 router.post("/", postNilaiLomba);
 router.post("/get", getNilaiJuri);
 router.get("/get-semu", getNilaiJuriSemu);
