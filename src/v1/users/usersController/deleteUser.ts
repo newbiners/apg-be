@@ -18,9 +18,16 @@ export const DeleteUser = async (req: Request, res: Response): Promise<void> => 
         }
 
         // menghitung kembali nilai limba
+        const nilaiJuriData = await nilaiJuri.find({ create: id });
         await nilaiJuri.deleteMany({ create: id });
 
-        const nilaiLombaDetailData = await nilaiLombaDetail.find();
+        var nilaiLombaDetailId: string[] = nilaiJuriData.map((nilai) => nilai.nilai_lomba_detail_id.toString());
+        var nilaiLombaId: string[] = nilaiJuriData.map((nilai) => nilai.nilai_lomba_id.toString());
+        var reguId: string[] = nilaiJuriData.map((nilai) => nilai.regu.toString());
+        var schoolId: string[] = nilaiJuriData.map((nilai) => nilai.school.toString());
+
+
+        const nilaiLombaDetailData = await nilaiLombaDetail.find({ _id: { $in: nilaiLombaDetailId } });
 
         for (let i = 0; i < nilaiLombaDetailData.length; i++) {
             // const lombaDetailId = nilaiLombaDetailData[i].lomba_detail;
@@ -33,8 +40,8 @@ export const DeleteUser = async (req: Request, res: Response): Promise<void> => 
             await nilaiLombaDetail.findByIdAndUpdate(nilaiLombaDetailData[i]._id, { nilai: total }, { new: true });
         }
 
-        res.status(400).json({ message: "test 1" })
-        const nilaiLombaData = await nilaiLomba.find();
+        // res.status(400).json({ message: "test 1" })
+        const nilaiLombaData = await nilaiLomba.find({ _id: { $in: nilaiLombaId } });
 
         for (let i = 0; i < nilaiLombaData.length; i++) {
             const nilaiLombaId = nilaiLombaData[i]._id;
@@ -45,8 +52,8 @@ export const DeleteUser = async (req: Request, res: Response): Promise<void> => 
             }
             await nilaiLomba.findByIdAndUpdate(nilaiLombaId, { nilai: total }, { new: true });
         }
-        res.status(400).json({ message: "test 2" })
-        const Regu = await regu.find();
+        // res.status(400).json({ message: "test 2" })
+        const Regu = await regu.find({ _id: { $in: reguId } });
         // let totalRegu = 0;
         for (let i = 0; i < Regu.length; i++) {
             const reguId = Regu[i]._id;
@@ -58,8 +65,7 @@ export const DeleteUser = async (req: Request, res: Response): Promise<void> => 
             await regu.findByIdAndUpdate(reguId, { nilai: totalRegu }, { new: true });
         }
 
-        res.status(400).json({ message: "test 3" })
-        const Sekolah = await schools.find();
+        const Sekolah = await schools.find({ _id: { $in: schoolId } });
         for (let i = 0; i < Sekolah.length; i++) {
             const schoolId = Sekolah[i]._id;
             const nilaiLombaData = await nilaiLomba.find({ regu: schoolId, type: "pangkalan" });
@@ -70,6 +76,7 @@ export const DeleteUser = async (req: Request, res: Response): Promise<void> => 
             await schools.findByIdAndUpdate(schoolId, { nilai: totalSchool }, { new: true });
         }
 
+        res.status(400).json({ message: "test 3" })
         const getRoles = await getRole();
 
         const getUser = await User.find();
