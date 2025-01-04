@@ -60,35 +60,22 @@ export const postJuaraUmumPangkalan = async (
                 //     dataArr[lombaName] = [];
                 // }
 
-                // nilaiLombaData.forEach((item) => {
-                //     dataArr[lombaName].push({
-                //         pangkalan: schoolItem || null,
-                //         lomba: lombaItem,
-                //         lomba_id: lombaItem._id,
-                //         nilai_default: item.nilai,
-                //         // nilai_juara: item.nilai_juara,
-                //         type,
-                //     });
-                // });
-
                 nilaiLombaData.forEach((item) => {
-                    const exists = dataArr[lombaName].some((entry) => entry.lomba_id === lombaItem._id && entry.pangkalan._id === schoolItem._id);
-                    if (!exists) {
-                        dataArr[lombaName].push({
-                            pangkalan: schoolItem || null,
-                            lomba: lombaItem,
-                            lomba_id: lombaItem._id,
-                            nilai_default: item.nilai,
-                            type,
-                        });
-                    }
+                    dataArr[lombaName].push({
+                        pangkalan: schoolItem || null,
+                        lomba: lombaItem,
+                        lomba_id: lombaItem._id,
+                        nilai_default: item.nilai,
+                        // nilai_juara: item.nilai_juara,
+                        type,
+                    });
                 });
             }
         }
 
 
         var dataArr1 = Object.values(dataArr);
-        res.status(200).json(dataArr1);
+        // res.status(200).json(dataArr1);
 
         const dataJuara: any[] = [];
         for (let y = 0; y < dataArr1.length; y++) {
@@ -131,7 +118,7 @@ export const postJuaraUmumPangkalan = async (
             }
 
         }
-        // res.status(200).json(dataJuara);
+        res.status(200).json(dataJuara);
 
         // Simpan data detail ke database
         await juaraUmum.insertMany(dataJuara);
