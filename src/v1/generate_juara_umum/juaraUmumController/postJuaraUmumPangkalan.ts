@@ -78,9 +78,10 @@ export const postJuaraUmumPangkalan = async (
         // res.status(200).json(dataArr1);
 
         const dataJuara: any[] = [];
+        let hitung = 0;
         for (let y = 0; y < dataArr1.length; y++) {
             dataArr1[y].sort((a: any, b: any) => b.nilai_default - a.nilai_default)
-
+            hitung++
             for (let i = 0; i < dataArr1[y].length; i++) {
                 if (i == 0) {
                     dataArr1[y][i].nilai = 5
@@ -118,7 +119,7 @@ export const postJuaraUmumPangkalan = async (
             }
 
         }
-        res.status(200).json(dataJuara);
+        res.status(200).send(hitung);
 
         // Simpan data detail ke database
         await juaraUmum.insertMany(dataJuara);
