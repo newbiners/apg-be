@@ -126,7 +126,8 @@ export const getJuaraUmumReguUser = async (
         var data_detail_finis: { [key: string]: any[] } = {};
         for (let i = 0; i < data_detail.length; i++) {
             const school = await schools.findById({ _id: data_detail[i].header.school });
-            var key = data_detail[i].header.name + "-" + school && school?.name || "";
+            var key = data_detail[i].header.name
+            // "-" + school && school?.name || "";
             if (!data_detail_finis[key.toString()]) {
                 data_detail_finis[key.toString()] = [];
             }
