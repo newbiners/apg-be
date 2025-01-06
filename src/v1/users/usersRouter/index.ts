@@ -13,12 +13,12 @@ const router = express.Router();
 
 router.post('/login', userLogin);
 router.post('/signup', signup);
+router.get('/logout/:id', userLogout);
 router.use(authenticateToken, authorizeRoles(['ADMIN']));
 router.get('/', GetAllUsers);
 router.put('/:id', EditUser);
 router.delete('/:id', DeleteUser);
 router.get('/:id', GetUserById);
-router.get('/logout/:id', userLogout);
 router.post('/', userPost);
 
 export const userRouter = router;
