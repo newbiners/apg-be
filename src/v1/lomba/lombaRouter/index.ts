@@ -11,8 +11,8 @@ const router = express.Router();
 router.post("/user", Lomba);
 router.use(authenticateToken, authorizeRoles(['ADMIN', 'JURI']))
 router.get("/", GetAllLomba);
-router.use(authenticateToken, authorizeRoles(['ADMIN']))
 router.post("/:id", GetAllLomba);
+router.use(authenticateToken, authorizeRoles(['ADMIN']))
 router.post("/", PostLomba);
 router.delete("/:id", DeleteLomba);
 router.put("/:id", EditLomba);
