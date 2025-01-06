@@ -34,7 +34,7 @@ export const authorizeRoles = (allowedRoles: string[]) => {
             const role = await roles.findOne({ _id: req.user.role }).exec();
 
             if (!role || !allowedRoles.includes(role.name)) {
-                return res.status(403).json({ message: 'Forbidden' });
+                return res.status(403).json({ message: 'Forbidden', req: req.user.role });
             }
 
             next();
