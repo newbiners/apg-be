@@ -32,10 +32,10 @@ export const authorizeRoles = (allowedRoles: string[]) => {
 
         try {
             const role = await roles.findOne({ _id: req.user.role }).exec();
-
-            if (!role || !allowedRoles.includes(role.name)) {
-                return res.status(403).json({ message: 'Forbidden', req: req.user.role });
-            }
+            return res.status(403).json({ message: 'Forbidden', req: role });
+            // if (!role || !allowedRoles.includes(role.name)) {
+            //     return res.status(403).json({ message: 'Forbidden', req: req.user.role });
+            // }
 
             next();
         } catch (err) {
