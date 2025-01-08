@@ -81,7 +81,7 @@ export const exportExl = async (req: Request, res: Response): Promise<void> => {
                     });
 
                     // Add detail dynamically as detail1, detail2, etc.
-                    reguData[`detail${index + 1}`] = nilaiLombaDetails?.nilai || 0; // Default nilai to 0 if not found
+                    reguData[`${detail.name}`] = nilaiLombaDetails?.nilai || 0; // Default nilai to 0 if not found
                 }
 
                 return reguData;
