@@ -77,7 +77,7 @@ export const exportExl = async (req: Request, res: Response): Promise<void> => {
                 for (const [index, detail] of lombaDetails.entries()) {
                     const nilaiLombaDetails = await nilaiLombaDetail.findOne({
                         regu: currentRegu._id,
-                        lombaDetail: detail._id,
+                        lomba_detail: detail._id,
                     });
 
                     // Add detail dynamically as detail1, detail2, etc.
