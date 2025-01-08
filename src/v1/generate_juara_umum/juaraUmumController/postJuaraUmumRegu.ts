@@ -219,7 +219,8 @@ export const postJuaraUmumRegu = async (
       dataArr1[y].sort((a: any, b: any) => b.nilai_default - a.nilai_default)
 
       for (let i = 0; i < dataArr1[y].length; i++) {
-        if (i == 0) {
+        var nilai = dataArr1[y][i].nilai_default
+        if (i == 0 && nilai != 0) {
           dataArr1[y][i].regu.school = dataArr1[y][i].pangkalan
           dataArr1[y][i].nilai = 5
           dataJuara.push({
@@ -227,10 +228,11 @@ export const postJuaraUmumRegu = async (
             header: dataArr1[y][i].regu,
             pangkalan: dataArr1[y][i].pangkalan,
             nilai: dataArr1[y][i].nilai,
+            poin: nilai,
             type: type,
             gender: gender
           });
-        } else if (i == 1) {
+        } else if (i == 1 && nilai != 0) {
           dataArr1[y][i].regu.school = dataArr1[y][i].pangkalan
           dataArr1[y][i].nilai = 3
           dataJuara.push({
@@ -238,10 +240,11 @@ export const postJuaraUmumRegu = async (
             header: dataArr1[y][i].regu,
             pangkalan: dataArr1[y][i].pangkalan,
             nilai: dataArr1[y][i].nilai,
+            poin: nilai,
             type: type,
             gender: gender
           });
-        } else if (i == 2) {
+        } else if (i == 2 && nilai != 0) {
           dataArr1[y][i].regu.school = dataArr1[y][i].pangkalan
           dataArr1[y][i].nilai = 1
           dataJuara.push({
@@ -249,6 +252,7 @@ export const postJuaraUmumRegu = async (
             header: dataArr1[y][i].regu,
             pangkalan: dataArr1[y][i].pangkalan,
             nilai: dataArr1[y][i].nilai,
+            poin: nilai,
             type: type,
             gender: gender
           });
@@ -260,6 +264,7 @@ export const postJuaraUmumRegu = async (
             header: dataArr1[y][i].regu,
             pangkalan: dataArr1[y][i].pangkalan,
             nilai: dataArr1[y][i].nilai,
+            poin: nilai,
             type: type,
             gender: gender
           });
@@ -298,6 +303,8 @@ export const postJuaraUmumRegu = async (
     // Simpan data header ke database
     await juaraUmum.insertMany(dataHeader);
 
+    dataJuara.sort((a, b) => b.nilai - a.nilai);
+    dataHeader.sort((a, b) => b.nilai - a.nilai);
     // Kirim hasil
     res.status(200).json({ data_detail: dataJuara, data_header: dataHeader });
   } catch (err) {
