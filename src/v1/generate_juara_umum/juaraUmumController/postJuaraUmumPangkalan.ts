@@ -75,7 +75,7 @@ export const postJuaraUmumPangkalan = async (
 
 
         var dataArr1 = Object.values(dataArr);
-        res.status(200).json(dataArr1);
+        // res.status(200).json(dataArr1);
 
         const dataJuara: any[] = [];
         let hitung = 0;
@@ -83,7 +83,8 @@ export const postJuaraUmumPangkalan = async (
             dataArr1[y].sort((a: any, b: any) => b.nilai_default - a.nilai_default)
             hitung++
             for (let i = 0; i < dataArr1[y].length; i++) {
-                if (i == 0) {
+                var nilai = dataArr1[y][i].nilai_default
+                if (i == 0 && nilai != 0) {
                     dataArr1[y][i].nilai = 5
                     dataJuara.push({
                         name: dataArr1[y][i].lomba,
@@ -91,7 +92,7 @@ export const postJuaraUmumPangkalan = async (
                         nilai: dataArr1[y][i].nilai,
                         type: type,
                     });
-                } else if (i == 1) {
+                } else if (i == 1 && nilai != 0) {
                     dataArr1[y][i].nilai = 3
                     dataJuara.push({
                         name: dataArr1[y][i].lomba,
@@ -99,7 +100,7 @@ export const postJuaraUmumPangkalan = async (
                         nilai: dataArr1[y][i].nilai,
                         type: type,
                     });
-                } else if (i == 2) {
+                } else if (i == 2 && nilai != 0) {
                     dataArr1[y][i].nilai = 1
                     dataJuara.push({
                         name: dataArr1[y][i].lomba,
