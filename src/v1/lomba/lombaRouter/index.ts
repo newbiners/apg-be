@@ -9,7 +9,7 @@ import { Lomba } from "../lombaController/lomba";
 import { exportExl } from "../lombaController/exportExl";
 const router = express.Router();
 
-router.post("/export", (req, res) => res.status(200).json({ message: "success" }));
+router.post("/export", exportExl);
 router.post("/user", Lomba);
 router.use(authenticateToken, authorizeRoles(['ADMIN', 'JURI']))
 router.get("/", GetAllLomba);
