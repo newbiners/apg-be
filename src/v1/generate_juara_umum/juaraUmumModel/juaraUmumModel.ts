@@ -11,6 +11,7 @@ export interface IJuaraUmum extends Document {
   pangkalan: object;
   header: object;
   nilai: number;
+  poin: number;
   gender: string;
   type: string;
 }
@@ -28,6 +29,7 @@ const JuaraUmumSchema = new Schema<IJuaraUmum>({
     type: Object,
     required: false,
   },
+  poin: { type: Number, required: false },
   type: { type: String, required: true },
   gender: { type: String, required: false },
   nilai: { type: Number, required: true },

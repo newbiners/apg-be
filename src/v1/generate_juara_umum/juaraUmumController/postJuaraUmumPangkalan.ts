@@ -90,6 +90,7 @@ export const postJuaraUmumPangkalan = async (
                         name: dataArr1[y][i].lomba,
                         header: dataArr1[y][i].pangkalan,
                         nilai: dataArr1[y][i].nilai,
+                        poin: nilai,
                         type: type,
                     });
                 } else if (i == 1 && nilai != 0) {
@@ -98,6 +99,7 @@ export const postJuaraUmumPangkalan = async (
                         name: dataArr1[y][i].lomba,
                         header: dataArr1[y][i].pangkalan,
                         nilai: dataArr1[y][i].nilai,
+                        poin: nilai,
                         type: type,
                     });
                 } else if (i == 2 && nilai != 0) {
@@ -106,6 +108,7 @@ export const postJuaraUmumPangkalan = async (
                         name: dataArr1[y][i].lomba,
                         header: dataArr1[y][i].pangkalan,
                         nilai: dataArr1[y][i].nilai,
+                        poin: nilai,
                         type: type,
                     });
                 } else {
@@ -114,6 +117,7 @@ export const postJuaraUmumPangkalan = async (
                         name: dataArr1[y][i].lomba,
                         header: dataArr1[y][i].pangkalan,
                         nilai: dataArr1[y][i].nilai,
+                        poin: nilai,
                         type: type,
                     });
                 }
@@ -149,6 +153,8 @@ export const postJuaraUmumPangkalan = async (
         // Simpan data header ke database
         await juaraUmum.insertMany(dataHeader);
 
+        dataJuara.sort((a, b) => b.nilai - a.nilai);
+        dataHeader.sort((a, b) => b.nilai - a.nilai);
         // Kirim hasil
         res.status(200).json({ data_detail: dataJuara, data_header: dataHeader });
     } catch (err) {
