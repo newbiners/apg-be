@@ -9,6 +9,7 @@ export const exportExl = async (req: Request, res: Response): Promise<void> => {
 
         // Check if Lomba exists
         const getLomba = await lomba.findOne({ _id: id });
+        res.status(200).json(getLomba);
         if (!getLomba) {
             res.status(404).json({ message: "Data not found" });
             return;
