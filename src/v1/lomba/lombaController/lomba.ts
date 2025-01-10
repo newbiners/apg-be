@@ -19,7 +19,7 @@ export const Lomba = async (
             gender: gender
         }
 
-        if (getLomba?.type === "Pangkalan") {
+        if (getLomba?.type === "pangkalan") {
             filter['_id'] = {
                 $nin: ['6768c767b69efe879cf5f938', "6768c779b69efe879cf5f93f"]
             }
