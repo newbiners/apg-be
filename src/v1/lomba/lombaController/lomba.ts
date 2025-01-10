@@ -15,8 +15,11 @@ export const Lomba = async (
 
         const getLomba = await lomba.findOne({ name: name });
 
-        var filter: { gender: any; _id?: any } = {
-            gender: gender
+        var filter: { gender?: any; _id?: any } = {
+        }
+
+        if (gender) {
+            filter.gender = gender
         }
 
         if (getLomba?.type === "pangkalan") {
