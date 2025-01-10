@@ -28,12 +28,26 @@ export const Lomba = async (
         var regu_data = await regu.find(filter);
 
         if (getLomba?.type == 'pangkalan') {
-            var getPa = regu_data.filter((data) => {
-                return data.gender == "PA"
-            })
+            var reguResult: { [key: string]: any } = {};
+            for (let i = 0; i < regu_data.length; i++) {
+                var key = regu_data[i].school;
+                if (!reguResult[key.toString()]) {
+                    reguResult[key.toString()] = [];
+                }
+                reguResult[key.toString()].push(regu_data[i]);
+            }
 
-            if (getPa.length > 0) {
-                regu_data = getPa
+            var ress: any[] = [];
+            for (const key in reguResult) {
+                var value = reguResult[key];
+                var vilter = value.filter((data: any) => {
+                    data.gender == "PA"
+                })
+                if (vilter.length > 0) {
+                    ress.push(vilter)
+                } else {
+                    // ress.push(value[0])
+                }
             }
         }
 
