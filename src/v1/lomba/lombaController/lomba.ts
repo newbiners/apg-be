@@ -15,7 +15,7 @@ export const Lomba = async (
 
         const getLomba = await lomba.findOne({ name: name });
 
-        const regu_data = await regu.find({ gender: gender });
+        const regu_data = await regu.find({ gender: gender, regu: { $nin: ['6768c767b69efe879cf5f938', "67556fdfd0d0f1a407d66e4f"] } });
 
         var result: any[] = [];
         for (let i = 0; i < regu_data.length; i++) {
