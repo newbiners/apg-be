@@ -25,7 +25,17 @@ export const Lomba = async (
             }
         }
 
-        const regu_data = await regu.find(filter);
+        var regu_data = await regu.find(filter);
+
+        if (getLomba?.type == 'pangkalan') {
+            var getPa = regu_data.filter((data) => {
+                return data.gender == "PA"
+            })
+
+            if (getPa.length > 0) {
+                regu_data = getPa
+            }
+        }
 
         var result: any[] = [];
         for (let i = 0; i < regu_data.length; i++) {
