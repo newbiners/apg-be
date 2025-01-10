@@ -30,31 +30,30 @@ export const Lomba = async (
 
         var regu_data = await regu.find(filter);
 
-        if (getLomba?.type == 'pangkalan') {
-            var reguResult: { [key: string]: any } = {};
-            for (let i = 0; i < regu_data.length; i++) {
-                var key = regu_data[i].school;
-                if (!reguResult[key.toString()]) {
-                    reguResult[key.toString()] = [];
-                }
-                reguResult[key.toString()].push(regu_data[i]);
-            }
+        // if (getLomba?.type == 'pangkalan') {
+        //     var reguResult: { [key: string]: any } = {};
+        //     for (let i = 0; i < regu_data.length; i++) {
+        //         var key = regu_data[i].school;
+        //         if (!reguResult[key.toString()]) {
+        //             reguResult[key.toString()] = [];
+        //         }
+        //         reguResult[key.toString()].push(regu_data[i]);
+        //     }
 
-            var ress: any[] = [];
-            for (const key in reguResult) {
-                var value = reguResult[key];
-                var vilter = value.filter((data: any) => {
-                    data.gender == "PA"
-                })
-                if (vilter.length > 0) {
-                    ress.push(vilter)
-                } else {
-                    // ress.push(value[0])
-                }
-            }
-
-            regu_data = ress
-        }
+        //     var ress: any[] = [];
+        //     for (const key in reguResult) {
+        //         var value = reguResult[key];
+        //         var vilter = value.filter((data: any) => {
+        //             data.gender == "PA"
+        //         })
+        //         if (vilter.length > 0) {
+        //             ress.push(vilter)
+        //         } else {
+        //             // ress.push(value[0])
+        //         }
+        //     }
+            
+        // }
 
         var result: any[] = [];
         for (let i = 0; i < regu_data.length; i++) {
