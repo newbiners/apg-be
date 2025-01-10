@@ -23,9 +23,13 @@ export const getReguBySchool = async (
 
 
     if (type == 'pangkalan') {
-      getRegu = getRegu.filter((data) => {
+      var getPa = getRegu.filter((data) => {
         return data.gender == "PA"
       })
+
+      if (getPa.length > 0) {
+        getRegu = getPa
+      }
     }
 
     const school_id = getRegu.map((data) => data.school);
