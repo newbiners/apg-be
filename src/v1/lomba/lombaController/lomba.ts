@@ -15,7 +15,17 @@ export const Lomba = async (
 
         const getLomba = await lomba.findOne({ name: name });
 
-        const regu_data = await regu.find({ gender: gender, _id: { $nin: ['6768c767b69efe879cf5f938', "6768c779b69efe879cf5f93f"] } });
+        var filter: { gender: any; _id?: any } = {
+            gender: gender
+        }
+
+        if (getLomba?.type === "Pangkalan") {
+            filter['_id'] = {
+                $nin: ['6768c767b69efe879cf5f938', "6768c779b69efe879cf5f93f"]
+            }
+        }
+
+        const regu_data = await regu.find(filter);
 
         var result: any[] = [];
         for (let i = 0; i < regu_data.length; i++) {
