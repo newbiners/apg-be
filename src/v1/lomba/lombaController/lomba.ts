@@ -24,7 +24,7 @@ export const Lomba = async (
 
         if (getLomba?.type === "pangkalan") {
             filter['_id'] = {
-                $nin: ['6768c767b69efe879cf5f938', "6768c779b69efe879cf5f93f", '676629d4ca6ad0790d885ab9', '676629f2ca6ad0790d885ac0']
+                $nin: ['6768c767b69efe879cf5f938', "6768c779b69efe879cf5f93f", '676629d4ca6ad0790d885ab9', '676629f2ca6ad0790d885ac0', '6766292f131dc17a71e36fb3', '6766274f131dc17a71e36f63', '67662853131dc17a71e36f9b', '6766281b131dc17a71e36f8d', '676626f5131dc17a71e36f51', '6768c79cb69efe879cf5f94e', '676627bd131dc17a71e36f75', '676626c1131dc17a71e36f43', '']
             }
         }
 
