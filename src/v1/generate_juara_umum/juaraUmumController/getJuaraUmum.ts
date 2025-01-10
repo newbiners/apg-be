@@ -77,6 +77,7 @@ export const getJuaraUmumReguUser = async (
 
         if (userJuri.length > 0) {
             res.status(200).json([])
+            return
         }
 
 
