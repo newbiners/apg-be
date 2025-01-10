@@ -6,14 +6,27 @@ export const getReguBySchool = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { school, gender } = req.body;
-    var filter: { school: string, gender?: string } = {
+    const { school, gender, type } = req.body;
+    var filter: { school: string, gender?: string, _id?: any } = {
       school: school._id
     }
     if (gender) {
       filter.gender = gender
     }
-    const getRegu = await regu.find(filter);
+
+    if (type == 'pangkalan') {
+      filter['_id'] = {
+        $nin: ['6768c767b69efe879cf5f938', "6768c779b69efe879cf5f93f"]
+      }
+    }
+    var getRegu = await regu.find(filter);
+
+
+    if (type == 'pangkalan') {
+      getRegu = getRegu.filter((data) => {
+        return data.gender == "PA"
+      })
+    }
 
     const school_id = getRegu.map((data) => data.school);
     const getSchool = await schoolData(school_id);
