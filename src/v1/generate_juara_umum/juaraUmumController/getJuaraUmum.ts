@@ -154,7 +154,7 @@ export const getJuaraUmumPangkalanUser = async (
         if (!type) {
             res.status(400).json({ error: "Type is required." });
         }
-        const rolesJuri = await roles.findOne({ name: "Juri" });
+        const rolesJuri = await roles.findOne({ name: "JURI" });
 
         const userJuri = await User.find({ role: rolesJuri && rolesJuri._id, active: true });
 
