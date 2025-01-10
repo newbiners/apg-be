@@ -52,6 +52,8 @@ export const Lomba = async (
                     // ress.push(value[0])
                 }
             }
+
+            regu_data = ress
         }
 
         var result: any[] = [];
