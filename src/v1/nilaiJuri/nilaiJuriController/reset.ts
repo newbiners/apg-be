@@ -12,10 +12,10 @@ export const Reset = async (
     try {
         const id = req.body?.id as any;
 
-        // if (id != "112211") {
+        if (id != "112211") {
             res.status(400).json({ message: id })
             return
-        // }
+        }
         await nilaiJuri.deleteMany({});
 
         const filter = {};
